@@ -1,10 +1,13 @@
 import React from 'react';
-import styles from './Product.module.css';
 
-class ProductList extends React.Component {
+class Product extends React.Component {
   render() {
-    return <h1>Product</h1>
+    return (
+      <div className="core-wrapper">
+        Product
+      </div>
+    )
   };
 };
 
-export default ProductList;
+export default Product;
