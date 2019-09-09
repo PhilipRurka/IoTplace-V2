@@ -1,17 +1,30 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+// const H1 = styled.h1({
+//   borderRadius: '50%',
+//   transition: 'transform 400ms ease-in-out',
+//   boxSizing: 'border-box',
+//   display: 'flex',
+//   ':hover': {
+//     transform: 'scale(1.2)'
+//   }
+// })
+
+const Wrapper = styled.div({
+  fontSize: '0;',
+  width: 'calc(25% - 10px);'
+});
+
 class ProductShowcaseCard extends React.Component {
-  Wrapper = styled.div`
-    font-size: 0;
-    width: calc(25% - 10px);
-  `;
 
   Container = styled.div`
     position: relative;
     font-size: 1rem;
     background-color: gray;
     padding-bottom: 100%;
+    border-radius: 5px;
+    overflow: hidden;
   `;
 
   Content = styled.div`
@@ -25,11 +38,16 @@ class ProductShowcaseCard extends React.Component {
   ImageWrapper = styled.div`
     height: calc(100% - 20px);
     width: 100%;
-    background-image: url(/images/products.jpg);
   `;
 
   Image = styled.div`
-    
+    width: calc(100% * 1.3334176575);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: -50% 0;
+    background-image: url('/images/products.jpg');
+
   `;
 
   Name = styled.label`
@@ -42,17 +60,17 @@ class ProductShowcaseCard extends React.Component {
 
   render() {
     return (
-      <this.Wrapper>
+      <Wrapper>
         <this.Container>
           <this.Content>
             <this.ImageWrapper>
-              <this.Image></this.Image>
+              <this.Image />
             </this.ImageWrapper>
             <this.Name>{this.props.product.name}</this.Name>
             <this.Type></this.Type>
           </this.Content>
         </this.Container>
-      </this.Wrapper>
+      </Wrapper>
     );
   };
 };
