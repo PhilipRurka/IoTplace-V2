@@ -1,44 +1,51 @@
 import React from 'react';
-import setColors from '../styling/colors.js';
-import { css } from 'emotion';
+import styled from '@emotion/styled';
+import { ColorThemeContext, Themes } from '../../context/theme.js';
 
 const displayInline = `
-display: inline-block;
-vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 `
+
+const FooterWrapper = styled.div`
+  height: 150px;
+`;
+
+const FooterContainer = styled.div`
+  padding: 64px 0;
+  display table;
+  margin: auto;
+`;
+
+const Span = styled.span`
+  ${displayInline}
+  color: ${Themes.old.blueHaze}
+`;
+
+const Mailto = styled.a`
+  ${displayInline}
+  color: ${Themes.old.brandColorText};
+  &:hover {
+    color: ${Themes.old.brandColorTextHover};
+  }
+`;
 
 class Footer extends React.Component {
   render() {
     return (
-      <div
-        className={css`
-          height: 150px;
-        `}>
-        <div
-          className={css`
-            padding: 64px 0;
-            display table;
-            margin: auto;
-          `}>
-          <span
-            className={css`
-              ${displayInline}
-              color: ${setColors.blueHaze};
-            `}
-          >&copy; 2019 BlueKiwi.Tech | Any love or feedback? Say&nbsp;</span>
-          <a
-            href='mailto: Hello@IoTplace.com'
-            className={css`
-              ${displayInline}
-              color: ${setColors.brandColorText};
-              &:hover {
-                color: ${setColors.brandColorTextHover};
-              }
-            `}
-            >Hello@IoTplace.com</a>
-        </div>
-      </div>
-    )
+      <ColorThemeContext.Consumer>
+        {(old) => (
+          <FooterWrapper>
+            <FooterContainer>
+              <Span>&copy; 2019 BlueKiwi.Tech | Any love or feedback? Say&nbsp;</Span>
+              <Mailto
+                href='mailto: Hello@IoTplace.com'
+                >Hello@IoTplace.com</Mailto>
+            </FooterContainer>
+          </FooterWrapper>
+        )}
+      </ColorThemeContext.Consumer>
+    );
   };
 };
 

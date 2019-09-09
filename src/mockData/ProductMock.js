@@ -1,0 +1,146 @@
+const ProductListArray = [
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2pGVTKM",
+    companyName: "Athom",
+    description: "Meet the bubbly-looking smart home hub named Homey. Loosing count of how many remote controls you own? Homey is out to help consolidate, integrate and control your smart home devices by the gentle sound of your voice. So no more getting up to turn on those sexy time lights and tunes.",
+    name: "Homey",
+    price: 318,
+    reviewsURLs: "https://www.youtube.com/watch?v=HbH2CWb53iU",
+    shortDescriptor: "Smart Home Hub",
+    slug: "homey",
+    subTitle: "Everything at home connected"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2raLhF9",
+    companyName: "Misfit",
+    description: "Okay. Light bulbs. How to write enticing and edgy copy for smart light bulbs.. Well, the light-diffusion coating is pretty lit. You can even program sunrise simulations, timed lighting and music responsive lighting. That's pretty bright. Kinda cool: the Misfit Bolts can be controled by the [Misfit Shine](http://www.iotplace.store/products/misfit-shine)–– but no, not the [Amazon Echo](http://www.iotplace.store/products/amazon-echo) :(",
+    name: "Misfit Bolt",
+    price: 49,
+    reviewsURLs: "https://www.youtube.com/watch?v=mcZXSl1W-tg",
+    shortDescriptor: "LED Bulb",
+    slug: "misfit-bulb",
+    subTitle: "Misfit Bolt Smart LED Bulb"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2qahsGY",
+    companyName: "August",
+    description: "UPS always showin' up when you're not home? Of course they are.. Sweat your package no more! The August smart doorbell alerts you when someone is at the door. And with its fancy cam, you can see who's there and even control the [August Smart Lock](http://www.iotplace.store/products/august-smart-lock) all from your smartphone. Good to know: This doorbell connects to wifi (duh), and requires an existing mechanical doorbell system (16-24V).",
+    name: "August Smart Bell",
+    price: 199,
+    reviewsURLs: "https://www.youtube.com/watch?v=aiv8tLCix9U",
+    shortDescriptor: "Doorbell Cam",
+    slug: "august-smart-bell",
+    subTitle: "Always know who’s at the front door"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2qDq5Kg",
+    companyName: "Tile",
+    description: "For the loosely organized, Tile helps you find things like your wallet, purse, parking spot, luggage, kid.. Connect Tile to your smartphone and find anything like marco polo in the 13th century! As a bonus, you can even \"customize\" your ringtone (with 4 tones). Good for tracking your stollen bike; Should've bought a [Linka](http://www.iotplace.store/products/linka-smart-bike-lock), too.",
+    name: "Tile Slim",
+    price: 70,
+    reviewsURLs: "https://www.youtube.com/watch?v=O1xytVJbNs4",
+    shortDescriptor: "Find Lost Items",
+    slug: "tile-slim",
+    subTitle: "Easily attach, stick or tie to keys, luggage, backpacks and more"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2raATNR",
+    companyName: "iRobot",
+    description: "Let's get ready to Roombaaaaaaaaa! Like a Dyson vaccum with a brain and legs (not actually), this moving cat seat–– uh, I mean cleaning machine is programable for when you're away, runs through every inch of your home, and even drives itself to its charging dock. True story, some people even use the Roomba as an alarm clock because it's indifferent to your morning grudge and runs away on you.",
+    name: "iRobot Roomba",
+    price: 900,
+    reviewsURLs: "https://www.youtube.com/watch?v=idkIJP_LwgA",
+    shortDescriptor: "Robot Vacuum",
+    slug: "irobot-roomba",
+    subTitle: "Vacuuming Robot"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2r9cdEJ",
+    companyName: "June",
+    description: "Sillicon Valley boys and girls, meet your new mama: June. Take the guesswork out of cooking with this iOS ready smart oven. Go ahead, pimp your kitchen. With over 50 cooking programs and built in scale, high-precision thermometer, dual adaptive convection fans and June Food ID Technology, June is the best smart oven on the market by far. A must for any smart home. ",
+    name: "June",
+    price: 1495,
+    reviewsURLs: "https://www.youtube.com/watch?v=-9Qbl8ifdpw",
+    shortDescriptor: "Smart Oven",
+    slug: "june",
+    subTitle: "Designed to work. Beautifully."
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2qbjuG4",
+    companyName: "Nest",
+    description: "Ready to give Google more than your search history? The all-new Nest Protect (owned by Google, in case you didn't get the joke ;) has an industrial-grade smoke sensor, and can protect you and your family for up to a decade. The Nest Protect is also fully controllable from your smartphon",
+    name: "Nest Protect",
+    price: 2,
+    reviewsURLs: ["https://www.youtube.com/watch?v=METDdcmklVE&feature=youtu.be"],
+    shortDescriptor: "Air Monitor",
+    slug: "nest-protect"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2qachXk",
+    companyName: "Parrot",
+    description: "Arguably more useful than the hoverboard (without catching fire.. although, for more excitement, maybe it should), the revolutionary Parrot Pot monitors your plants with exception",
+    name: "Parrot Pot",
+    price: 5,
+    reviewsURLs: ["https://www.youtube.com/watch?v=2Tp-M3k0QSI&feature=youtu.be"],
+    shortDescriptor: "Flowerpot",
+    slug: "parrot-pot"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2ramJMJ",
+    companyName: "LINKA",
+    description: "You're a champ. You got to that meeting on time. But you forgot to lock your bike. Shit. And it's San Francisco, so you know its gone ¯\_(ツ)_/¯ In an alternate universe, you bought that Linka Smart Bike Lock you saw on Amazon a few days ago. With innovative auto-unlocking when you approach, the Noose Chain connects directly to your smart lock. Yep, no keys. Note: this fly shit fits 85% of typical commuter bikes so unless you're THAT guy at work, you're fine.",
+    name: "LINKA",
+    price: 129,
+    reviewsURLs: "https://www.youtube.com/watch?v=NRuf0Xnhelw",
+    shortDescriptor: "Smart Bike Lock",
+    slug: "linka-smart-bike-lock",
+    subTitle: "Lock Smarter, Not Harder. "
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2qbiimn",
+    companyName: "Vessyl",
+    description: "This [$1 million dollar kickstarter disappointment](https://qz.com/554239/crowdfundings-latest-dud-the-smart-cup-that-knows-what-youre-drinking/) basically tells you when and how much water to drink based on your weight, height, age, sleep, biological sex, and activity levels. Vessyl Pryme syncs with none of our products so you'll have to google this absolute game changer (superfluous category) tumbler. #realtalk #sorrynotsorry. But please buy it though.",
+    name: "Vessyl Pryme",
+    price: 99,
+    reviewsURLs: "https://www.youtube.com/watch?v=6-NmENdxcFw&feature=youtu.be",
+    shortDescriptor: "Smart Tumbler",
+    slug: "vessyl-pryme",
+    subTitle: "HYDRATE INTELLIGENTLY"
+  },
+  {
+    actionableText: "Buy On Amazon",
+    actionableUrl: "http://amzn.to/2ptgvtW",
+    companyName: "Amazon",
+    description: "Amazon Echo [mic drop]. For real though [picks up the mic], control \"every\" smart device in your life with your voice. Play music from Spotify, make calls, send messages, control lights and thermostats like [Nest](http://www.iotplace.store/products/nest), order pizzas through Domino's app hands free. In other words: optimize your everyday like there's no tomorrow. You can even talk to Alexa (the voice inside your Echo) while Drake's Passionfruit is bumping in the background. That's legit tech.",
+    name: "Amazon Echo",
+    price: 179,
+    reviewsURLs: "https://www.youtube.com/watch?v=FQn6aFQwBQU",
+    shortDescriptor: "Smart Home Hub",
+    slug: "amazon-echo",
+    subTitle: "Always ready, connected, and Fast."
+  },
+  {
+    actionableText: "Show Prices",
+    actionableUrl: "http://amzn.to/2qapDCT",
+    companyName: "Starry, Inc.",
+    description: "What's worse than troubleshooting with your router? Forgetting where you wrote down the password. And no, it is NOT in my closet. We all know the pain. Starry Station is out to change that. With its intuitive touchscreen display, this smart wifi router shows you the status of your network, how to fix it, and every geeky detail possible. \"Incredibly fast. Impossibly simple.\" says it all. Not to mention it's quite sexy.",
+    name: "Starry Station",
+    price: 278.88,
+    reviewsURLs: "https://www.youtube.com/watch?v=teVEk-jsoZU&feature=youtu.be",
+    shortDescriptor: "Wifi Router",
+    slug: "starry-station",
+    subTitle: "Incredibly fast. Impossibly simple. "
+  },
+]
+
+export default ProductListArray;

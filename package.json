@@ -10,7 +10,6 @@
     "@emotion/core": "^10.0.17",
     "@emotion/styled": "^10.0.17",
     "autoprefixer-stylus": "^1.0.0",
-    "emotion": "^10.0.17",
     "firebase": "^6.5.0",
     "prop-types": "^15.7.2",
     "re-base": "^4.0.0",
