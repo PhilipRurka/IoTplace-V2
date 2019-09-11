@@ -2,10 +2,41 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { ThemeContext, Themes } from '../../Themes';
 
+const anchorItems = [
+  {
+    href:'/discover',
+    text: 'Discover'
+  },
+  {
+    href:'/watchlist',
+    text: 'Watchlist'
+  }
+]
 
 class Header extends React.Component {
 
+  navAnchorItems = (href, text, theme) => {
+    return new Promise((resolve) => {
+      const id = (Math.random() * 1e17).toString();
+      return resolve(this.props.addStateHover(id));
+    })
+    .then((id) => {
+      const style = { color: (this.props.state.hover.id) ? 'black' : theme.brandColorTextHover};
+  
+      return (
+        <this.NavItem>
+          <this.NavAnchor href={href} onMouseEnter={() => this.props.toggleHover(id, true)} onMouseLeave={() => this.props.toggleHover(id, false)} style={style}>{text}</this.NavAnchor>
+        </this.NavItem>
+      );
+    })
+  };
+
+  HeaderWrapper = styled.div`
+    padding: 25px 0;
+  `;
+
   HeaderContainer = styled.div`
+    height :30px;
     display: flex;
     justify-content: space-between;
   `;
@@ -21,6 +52,10 @@ class Header extends React.Component {
     background-repeat: no-repeat;
   `;
 
+  NavWrapper = styled.div`
+    margin: 5px 0;
+  `;
+
   NavList = styled.ul`
     list-style: none;
     margin: 0;
@@ -33,33 +68,26 @@ class Header extends React.Component {
     }
   `;
 
-  NavAnchor = styled.div`
-    &:hover {
-      color: red;
-    }
-  `
+  NavAnchor = styled.div``;
 
   render() {
     return (
       <ThemeContext.Consumer>
-        {(theme) => (
-          <div className="header-wrapper">
+        {({ theme, toggleTheme }) => (
+          <this.HeaderWrapper>
             <this.HeaderContainer>
               <this.LogoWrapper>
-                <this.Logo style={{backgroundImage: `url('${theme.longLogo}')`}} />
+                <this.Logo onClick={toggleTheme} style={{backgroundImage: `url('${theme.longLogo}')`}} />
               </this.LogoWrapper>
-              <div className="nav-wrapper">
+              <this.NavWrapper>
                 <div className="nav-container">
                   <this.NavList>
-                    <this.NavItem>
-                      <this.NavAnchor href="">Discover</this.NavAnchor>
-                      <this.NavAnchor href="">Watchlist</this.NavAnchor>
-                    </this.NavItem>
+                    {this.navAnchorItems(theme)}
                   </this.NavList>
                 </div>
-              </div>
+              </this.NavWrapper>
             </this.HeaderContainer>
-          </div>
+          </this.HeaderWrapper>
         )}
       </ThemeContext.Consumer>
     );

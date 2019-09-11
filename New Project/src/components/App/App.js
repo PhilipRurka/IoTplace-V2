@@ -3,35 +3,55 @@ import './App.scss';
 import Header from '../Header/Header';
 // import Footer from '../Footer/Footer';
 import { ThemeContext, Themes } from '../../Themes';
-import { ST } from './AppStyles';
 
 class App extends React.Component {
   state = {
+    hover: {},
     theme: {},
-    themeType: 'old'
+    toggleTheme: null
   };
 
   componentWillMount() {
-    this.setState({theme: Themes[this.state.themeType]});
+    this.setState({
+      theme: Themes.old,
+      toggleTheme: this.toggleTheme
+    });
   };
 
-  toggleFunc = () => {
-    const newType = (this.state.themeType === 'old') ? 'new' : 'old';
+  toggleTheme = () => {
     this.setState({
-      themeType: newType,
-      theme: Themes[newType]
+      theme: (this.state.theme === Themes.new) ? Themes.old : Themes.new
     });
-    console.log(this.state.theme);
   };
+
+  /**
+   * This is called from the Header component.
+   * This adds the "unique" hover item's id to the list.
+   */
+  addStateHover = (id) => {
+    let hoverClone = {...this.state.hover};
+    if(hoverClone.id) { return; }
+    hoverClone[id] = false;
+    this.setState({ hover: hoverClone });
+  };
+
+  /**
+   * onMouseEnter, the appropriate element gets triggered (hover)
+   * onMouseLeave, the trigger affect (hover) goes away.
+   */
+  toggleHover = (id, isEntering) => {
+    let hoverClone = {...this.state.hover};
+    hoverClone[id] = isEntering;
+    return new Promise((resolve) => {
+      return resolve(this.setState({ hover: hoverClone }));
+    });
+  }
 
   render() {
     return (
       <div className="global-wrapper">
-        <ST.ToggleTheme onClick={this.toggleFunc}>
-          {(this.state.oldTheme) ? 'Old Theme' : 'New Theme'}
-        </ST.ToggleTheme>
-        <ThemeContext.Provider value={this.state.theme}>
-          <Header />
+        <ThemeContext.Provider value={this.state}>
+          <Header addStateHover={this.addStateHover} toggleHover={this.toggleHover} state={this.state} />
           {/* <Footer /> */}
         </ThemeContext.Provider>
       </div>
