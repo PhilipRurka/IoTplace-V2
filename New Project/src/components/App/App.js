@@ -1,40 +1,56 @@
 import React from 'react';
 import './App.scss';
 import Header from '../Header/Header';
-// import Footer from '../Footer/Footer';
+import ProductsPage from '../ProductsPage/ProductsPage';
+import Footer from '../Footer/Footer';
+import styled from '@emotion/styled';
 import { ThemeContext, Themes } from '../../Themes';
-import { ST } from './AppStyles';
+
+const sidePadding = `30px`;
 
 class App extends React.Component {
   state = {
     theme: {},
-    themeType: 'old'
+    toggleTheme: null
   };
 
   componentWillMount() {
-    this.setState({theme: Themes[this.state.themeType]});
+    this.setState({
+      theme: Themes.old,
+      toggleTheme: this.toggleTheme
+    });
   };
 
-  toggleFunc = () => {
-    const newType = (this.state.themeType === 'old') ? 'new' : 'old';
+  toggleTheme = () => {
     this.setState({
-      themeType: newType,
-      theme: Themes[newType]
+      theme: (this.state.theme === Themes.new) ? Themes.old : Themes.new
     });
-    console.log(this.state.theme);
   };
 
   render() {
+    const { state } = this;
+
+    const GlobalWrapper = styled.div`
+      padding: 0 ${sidePadding};
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    `;
+
+    const PageWrapper = styled.div`
+      padding-top: 80px;
+    `;
+
     return (
-      <div className="global-wrapper">
-        <ST.ToggleTheme onClick={this.toggleFunc}>
-          {(this.state.oldTheme) ? 'Old Theme' : 'New Theme'}
-        </ST.ToggleTheme>
-        <ThemeContext.Provider value={this.state.theme}>
-          <Header />
-          {/* <Footer /> */}
+      <GlobalWrapper>
+        <ThemeContext.Provider value={state}>
+          <Header sidePadding={sidePadding} />
+          <PageWrapper>
+            <ProductsPage />
+          </PageWrapper>
+          <Footer />
         </ThemeContext.Provider>
-      </div>
+      </GlobalWrapper>
     );
   };
 };

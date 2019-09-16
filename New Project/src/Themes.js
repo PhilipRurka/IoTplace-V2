@@ -2,60 +2,29 @@ import React from 'react';
 
 export const Themes = {
   old: {
-    // Default Colors
-    white: '#fff',
-    black: '#000',
-  
-    // Site Colors
-    martinique: '#2f334a',
-    turquoise: '#2cddbb',
-    turquoiseThin: '#21cead',
-    flamingo: '#ff8da6',
-  
-    brandColorText: '#6250ff',
-    brandColorTextHover: '#5645ec',
+    brandColorText: '#2cddbb',
+    brandColorTextHover: '#21cead',
   
     // Gradient Composition
-    brandColorGradient1: '#803FFB',
-    brandColorGradient2: '#5A7FFB',
-  
-    // Blue-Haze
-    // ELEMENTS: Secondary Text, Footer Text, Category Text, Price Text
-    blueHaze: '#B9B9D0', // Secondary Text Font Color. (Footer, Caterogy, Price)
-  
-    // Athens-Gray
-    // ELEMENTS: Product background
-    athensGray: '#f4f3f8',
+    brandColorGradient1: '#96F3E5',
+    brandColorGradient2: '#12AB8C',
+
+    rgba: 'rgb(18, 171, 140, 0.73)',
     
     // Images
     shortLogo: 'iotplace-icon.svg',
     longLogo: 'iotplace.svg'
   },
   new: {
-    // Default Colors
-    white: '#fff',
-    black: '#000',
-  
-    // Site Colors
-    martinique: '#2f334a',
-    turquoise: '#2cddbb',
-    turquoiseThin: '#21cead',
-    flamingo: '#ff8da6',
-  
     brandColorText: '#6250ff',
     brandColorTextHover: '#5645ec',
   
     // Gradient Composition
     brandColorGradient1: '#803FFB',
     brandColorGradient2: '#5A7FFB',
+
+    rgba: 'rgb(86, 69, 236, 0.73)',
   
-    // Blue-Haze
-    // ELEMENTS: Secondary Text, Footer Text, Category Text, Price Text
-    blueHaze: '#B9B9D0', // Secondary Text Font Color. (Footer, Caterogy, Price)
-  
-    // Athens-Gray
-    // ELEMENTS: Product background
-    athensGray: '#f4f3f8',
     longLogo: 'bluekiwi-tech-logo.svg'
   }
 };
@@ -64,3 +33,5 @@ export const ThemeContext = React.createContext({
   theme: Themes.old,
   toggleTheme: () => {}
 });
+
+// rgba: 'rgba(18, 171, 251, 73)',
