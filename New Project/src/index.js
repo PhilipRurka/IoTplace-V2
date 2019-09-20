@@ -5,6 +5,8 @@ import * as serviceWorker from './serviceWorker';
 import './styles/normalize.scss';
 import './styles/base.scss';
 
+import indexStore from './redux/index';
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

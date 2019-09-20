@@ -149,6 +149,8 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-emotion": "^10.0.17"
+    "babel-plugin-emotion": "^10.0.17",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4"
   }
 }
