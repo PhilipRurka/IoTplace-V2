@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 
+/** Styled Styled Styled Styled Styled Styled Styled Styled */
 const Wrapper = styled.div({
   display: 'inline-block',
   verticalAlign: 'top',
@@ -8,7 +9,7 @@ const Wrapper = styled.div({
   padding: '15px'
 });
 
-const Content = styled.div({
+const Container = styled.div({
   display: 'inline-block',
   width: '100%',
   border: '2px solid #A9E5BB',
@@ -22,13 +23,21 @@ const H1 = styled.h1({
   margin: '0'
 });
 
+const Content = styled.div({
+  margin: '15px 0'
+});
+/** End End End End End End End End End */
+
+
 const BubbleCard = (props) => {
   return (
     <Wrapper className='col-md-6'>
-      <Content>
+      <Container>
         <H1>{props.label}</H1>
-        {props.children}
-      </Content>
+        <Content>
+          {props.children}
+        </Content>
+      </Container>
     </Wrapper>
   );
 };

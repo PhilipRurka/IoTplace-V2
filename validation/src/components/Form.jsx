@@ -1,14 +1,27 @@
 import React from 'react';
 import BubbleCard from './BubbleCard';
 import styled from '@emotion/styled/macro';
+import { connect } from 'react-redux';
+import { addEntry } from '../redux/actions';
+import uuid from 'uuid';
+
+const mapDispatchToProps = (dispatch) => {
+  return { addEntry: entry => dispatch(addEntry(entry)) };
+};
 
 class Form extends React.Component {
+  /** Ref Ref Ref Ref Ref Ref Ref */
+  firstNameInput = React.createRef();
+  lastNameInput = React.createRef();
+  emailInput = React.createRef();
+  passwordInput = React.createRef();
+  /** End End End End End End End */
+
   /** Styled Styled Styled Styled Styled Styled Styled Styled */
   FormWrapper = styled.form({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-    margin: '15px 0'
   });
   
   Label = styled.label({
@@ -22,7 +35,7 @@ class Form extends React.Component {
     backgroundColor: '#e1fffe',
     border: '1px solid #A9E5BB',
     borderRadius: '5px',
-    padding: '5px',
+    padding: '10px',
     width: '100%'
   });
   
@@ -47,7 +60,24 @@ class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    alert('Form Has Been Submited!');
+    let firstName = this.firstNameInput.current.value;
+    let lastName = this.lastNameInput.current.value;
+    let email = this.emailInput.current.value;
+    let password = this.passwordInput.current.value;
+
+    const id = uuid();
+    this.props.addEntry({
+      id,
+      firstName,
+      lastName,
+      email,
+      password
+    });
+
+    this.firstNameInput.current.value = '';
+    this.lastNameInput.current.value = '';
+    this.emailInput.current.value = '';
+    this.passwordInput.current.value = '';
   }
 
   render() {
@@ -58,19 +88,19 @@ class Form extends React.Component {
         <FormWrapper onSubmit={this.handleSubmit}>
           <Field TopChild Half>
             <Label>First Name</Label>
-            <Input type='text' />
+            <Input type='text' required ref={this.firstNameInput} />
           </Field>
           <Field TopChild Half>
             <Label>Last Name</Label>
-            <Input type='text' />
+            <Input type='text' required ref={this.lastNameInput} />
           </Field>
           <Field>
             <Label>Email Adress</Label>
-            <Input type='email' />
+            <Input type='email' required ref={this.emailInput} />
           </Field>
           <Field>
             <Label>Password (This will be displayed!)</Label>
-            <Input type='password' />
+            <Input type='password' required ref={this.passwordInput} />
           </Field>
           <Submit type='submit'>Submit</Submit>
         </FormWrapper>
@@ -79,4 +109,6 @@ class Form extends React.Component {
   };
 };
 
-export default Form;
+const connectedForm = connect(null, mapDispatchToProps) (Form);
+
+export default connectedForm;

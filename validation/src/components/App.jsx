@@ -1,13 +1,17 @@
 import React from 'react';
 import Form from './Form';
 import Display from './Display';
+import { Provider } from 'react-redux';
+import store from '../redux/stores';
 
 function App() {
   return (
-    <div className="container">
-      <Form />
-      <Display />
-    </div>
+    <Provider store={store}>
+      <div className="container">
+        <Form />
+        <Display />
+      </div>
+    </Provider>
   );
 }
 
