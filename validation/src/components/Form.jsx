@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { addEntry } from '../redux/actions';
 import uuid from 'uuid';
 
+const mapToStateToProps = (state) => ({ errorFields: state.errorFields });
+
 const mapDispatchToProps = (dispatch) => {
   return { addEntry: entry => dispatch(addEntry(entry)) };
 };
@@ -31,13 +33,23 @@ class Form extends React.Component {
     letterSpacing: '0.5px'
   });
   
-  Input = styled.input({
-    backgroundColor: '#e1fffe',
-    border: '1px solid #A9E5BB',
-    borderRadius: '5px',
-    padding: '10px',
-    width: '100%'
-  });
+  Input = styled.input(
+    {
+      backgroundColor: '#e1fffe',
+      border: '1px solid #A9E5BB',
+      borderRadius: '5px',
+      padding: '10px',
+      width: '100%'
+    },
+    ((props) => {
+      return (props.error) && {
+        borderColor: 'red',
+        '&:focus': {
+          outlineColor: 'red'
+        }
+      }
+    })
+  );
   
   Field = styled.div(({ TopChild, Half }) => ({
       display: 'inline-block',
@@ -78,29 +90,30 @@ class Form extends React.Component {
     this.lastNameInput.current.value = '';
     this.emailInput.current.value = '';
     this.passwordInput.current.value = '';
-  }
+  };
 
   render() {
     const { FormWrapper, Label, Input, Field, Submit } = this;
+    const { errorFields } = this.props;
 
     return (
       <BubbleCard label='Form Section'>
         <FormWrapper onSubmit={this.handleSubmit}>
           <Field TopChild Half>
             <Label>First Name</Label>
-            <Input type='text' required ref={this.firstNameInput} />
+            <Input type='text' ref={this.firstNameInput} error={errorFields.firstName} />
           </Field>
           <Field TopChild Half>
             <Label>Last Name</Label>
-            <Input type='text' required ref={this.lastNameInput} />
+            <Input type='text' ref={this.lastNameInput} error={errorFields.lastName} />
           </Field>
           <Field>
             <Label>Email Adress</Label>
-            <Input type='email' required ref={this.emailInput} />
+            <Input type='email' ref={this.emailInput} error={errorFields.email}  />
           </Field>
           <Field>
             <Label>Password (This will be displayed!)</Label>
-            <Input type='password' required ref={this.passwordInput} />
+            <Input type='password' ref={this.passwordInput}  error={errorFields.password} />
           </Field>
           <Submit type='submit'>Submit</Submit>
         </FormWrapper>
@@ -109,6 +122,6 @@ class Form extends React.Component {
   };
 };
 
-const connectedForm = connect(null, mapDispatchToProps) (Form);
+const connectedForm = connect(mapToStateToProps, mapDispatchToProps) (Form);
 
 export default connectedForm;
