@@ -21,7 +21,8 @@ const inlinBlock = {
 class Form extends React.Component {
 
   state = {
-    showingRequirements: false
+    showingRequirements: false,
+    password: ''
   };
 
   /** Ref Ref Ref Ref Ref Ref Ref */
@@ -102,6 +103,7 @@ class Form extends React.Component {
 
   componentDidMount() {
     this.firstNameInput.current.focus();
+    
   };
 
   handleSubmit = (event) => {
@@ -127,14 +129,20 @@ class Form extends React.Component {
     this.setState({ showingRequirements });
   };
 
+  passwordOnChange = () => {
+    this.setState({ password: this.passwordInput.current.value })
+  };
+
   render() {
     const {
+      state,
       FormWrapper,
       Label,
       Input,
       Field,
       Submit,
       ShowRequirements,
+      passwordOnChange
     } = this;
     const { showingRequirements } = this.state;
     const { errorFields } = this.props;
@@ -179,11 +187,12 @@ class Form extends React.Component {
             <ShowRequirements onClick={this.handleShowRequirement}>
               {(showingRequirements) ? 'Hide Requirements' : 'Show Requirements'}
             </ShowRequirements>
-            <PasswordRequirements showingRequirements={showingRequirements} />
+            <PasswordRequirements state={state} />
             <Input
               type='password'
               ref={this.passwordInput}
               error={errorFields.password}
+              onChange={passwordOnChange}
             />
           </Field>
           <Submit type='submit'>Submit</Submit>
