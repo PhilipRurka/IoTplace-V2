@@ -4,15 +4,15 @@ const errorRequirements = {
   firstName: true,
   lastName: true,
   email: true,
-  password: true
+  password: true,
+  failedForm: false
 };
 
 export function formValidation({ dispatch }) {
   return function(next) {
     return function(action) {
       if(action.type === ADD_ENTRY_MIDDLE) {
-        const { firstName, lastName, email, password } = action.payload;
-        let failedForm = false;
+        const { firstName, lastName, email, password} = action.payload;
 
         /** Names Names Names Names Names Names */
         errorRequirements.firstName = (firstName.length < 2);
@@ -34,11 +34,12 @@ export function formValidation({ dispatch }) {
         ) ? false : true
         /** End End End End End End */
 
+        errorRequirements.failedForm = false;
         Object.keys(errorRequirements).map((key) => {
-          if(errorRequirements[key]) { failedForm = true };
+          if(errorRequirements[key]) { errorRequirements.failedForm = true };
         });
 
-        if(failedForm) {
+        if(errorRequirements.failedForm) {
           return dispatch({
             type: FAILED_ENTRY,
             payload: {

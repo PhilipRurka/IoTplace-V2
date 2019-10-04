@@ -85,35 +85,53 @@ class Form extends React.Component {
       email,
       password
     });
-
-    this.firstNameInput.current.value = '';
-    this.lastNameInput.current.value = '';
-    this.emailInput.current.value = '';
-    this.passwordInput.current.value = '';
   };
 
   render() {
     const { FormWrapper, Label, Input, Field, Submit } = this;
     const { errorFields } = this.props;
 
+    if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
+      this.firstNameInput.current.value = '';
+      this.lastNameInput.current.value = '';
+      this.emailInput.current.value = '';
+      this.passwordInput.current.value = '';
+    }
+
     return (
       <BubbleCard label='Form Section'>
         <FormWrapper onSubmit={this.handleSubmit}>
           <Field TopChild Half>
             <Label>First Name</Label>
-            <Input type='text' ref={this.firstNameInput} error={errorFields.firstName} />
+            <Input
+              type='text'
+              ref={this.firstNameInput}
+              error={errorFields.firstName}
+            />
           </Field>
           <Field TopChild Half>
             <Label>Last Name</Label>
-            <Input type='text' ref={this.lastNameInput} error={errorFields.lastName} />
+            <Input
+              type='text'
+              ref={this.lastNameInput}
+              error={errorFields.lastName}
+            />
           </Field>
           <Field>
             <Label>Email Adress</Label>
-            <Input type='email' ref={this.emailInput} error={errorFields.email}  />
+            <Input
+              type='email'
+              ref={this.emailInput}
+              error={errorFields.email}
+            />
           </Field>
           <Field>
             <Label>Password (This will be displayed!)</Label>
-            <Input type='password' ref={this.passwordInput}  error={errorFields.password} />
+            <Input
+              type='password'
+              ref={this.passwordInput}
+              error={errorFields.password}
+            />
           </Field>
           <Submit type='submit'>Submit</Submit>
         </FormWrapper>
