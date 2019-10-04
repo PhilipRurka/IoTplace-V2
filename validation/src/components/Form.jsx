@@ -1,17 +1,29 @@
 import React from 'react';
+import PasswordRequirements from './PasswordRequirements';
 import BubbleCard from './BubbleCard';
 import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
 import { addEntry } from '../redux/actions';
 import uuid from 'uuid';
 
-const mapToStateToProps = (state) => ({ errorFields: state.errorFields });
+const mapToStateToProps = (state) => ({
+  errorFields: state.errorFields
+});
 
 const mapDispatchToProps = (dispatch) => {
   return { addEntry: entry => dispatch(addEntry(entry)) };
 };
 
+const inlinBlock = {
+  display: 'inline-block',
+};
+
 class Form extends React.Component {
+
+  state = {
+    showingRequirements: false
+  };
+
   /** Ref Ref Ref Ref Ref Ref Ref */
   firstNameInput = React.createRef();
   lastNameInput = React.createRef();
@@ -26,23 +38,26 @@ class Form extends React.Component {
     justifyContent: 'space-between',
   });
   
-  Label = styled.label({
-    display: 'block',
-    margin: '0',
-    fontWeight: '600',
-    letterSpacing: '0.5px'
-  });
+  Label = styled.label(
+    {
+      margin: '0',
+      fontWeight: '600',
+      letterSpacing: '0.5px'
+    },
+    inlinBlock
+  );
   
   Input = styled.input(
     {
+      display: 'block',
       backgroundColor: '#e1fffe',
       border: '1px solid #A9E5BB',
       borderRadius: '5px',
       padding: '10px',
       width: '100%'
     },
-    ((props) => {
-      return (props.error) && {
+    (({ error }) => {
+      return (error) && {
         borderColor: 'red',
         '&:focus': {
           outlineColor: 'red'
@@ -68,10 +83,25 @@ class Form extends React.Component {
     letterSpacing: '0.5px',
     fontWeight: '600'
   });
+
+  ShowRequirements = styled.p(
+    {
+      margin: '0',
+      float: 'right',
+      fontSize: '12px',
+      fontWeight: '600',
+      letterSpacing: '0.5px',
+      marginTop: '6px',
+      cursor: 'pointer',
+      textDecoration: 'underline',
+      userSelect: 'none'
+    },
+    inlinBlock
+  );
   /** End End End End End End End End End */
 
   componentDidMount() {
-    this.firstNameInput.current.focus(); 
+    this.firstNameInput.current.focus();
   };
 
   handleSubmit = (event) => {
@@ -91,8 +121,22 @@ class Form extends React.Component {
     });
   };
 
+  handleShowRequirement = () => {
+    let { showingRequirements } = this.state;
+    showingRequirements = !showingRequirements;
+    this.setState({ showingRequirements });
+  };
+
   render() {
-    const { FormWrapper, Label, Input, Field, Submit } = this;
+    const {
+      FormWrapper,
+      Label,
+      Input,
+      Field,
+      Submit,
+      ShowRequirements,
+    } = this;
+    const { showingRequirements } = this.state;
     const { errorFields } = this.props;
 
     if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
@@ -101,7 +145,7 @@ class Form extends React.Component {
       this.emailInput.current.value = '';
       this.passwordInput.current.value = '';
       this.firstNameInput.current.focus();
-    }
+    };
 
     return (
       <BubbleCard label='Form Section'>
@@ -132,6 +176,10 @@ class Form extends React.Component {
           </Field>
           <Field>
             <Label>Password</Label>
+            <ShowRequirements onClick={this.handleShowRequirement}>
+              {(showingRequirements) ? 'Hide Requirements' : 'Show Requirements'}
+            </ShowRequirements>
+            <PasswordRequirements showingRequirements={showingRequirements} />
             <Input
               type='password'
               ref={this.passwordInput}
