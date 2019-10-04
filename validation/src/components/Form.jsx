@@ -126,7 +126,7 @@ class Form extends React.Component {
             />
           </Field>
           <Field>
-            <Label>Password (This will be displayed!)</Label>
+            <Label>Password</Label>
             <Input
               type='password'
               ref={this.passwordInput}
