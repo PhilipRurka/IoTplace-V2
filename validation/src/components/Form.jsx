@@ -70,6 +70,10 @@ class Form extends React.Component {
   });
   /** End End End End End End End End End */
 
+  componentDidMount() {
+    this.firstNameInput.current.focus(); 
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     let firstName = this.firstNameInput.current.value;
@@ -96,6 +100,7 @@ class Form extends React.Component {
       this.lastNameInput.current.value = '';
       this.emailInput.current.value = '';
       this.passwordInput.current.value = '';
+      this.firstNameInput.current.focus();
     }
 
     return (
