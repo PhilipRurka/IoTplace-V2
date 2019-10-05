@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/IoTplace-V2/precache-manifest.f2aaed1bdd11c4ed684997d975a2ca55.js"
+  "/IoTplace-V2/precache-manifest.44c6095ef4758be585e12e28aa0f600a.js"
 );
 
 self.addEventListener('message', (event) => {
