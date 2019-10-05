@@ -3,7 +3,7 @@ import PasswordRequirements from './PasswordRequirements';
 import BubbleCard from './BubbleCard';
 import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
-import { addEntry } from '../redux/actions';
+import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
 
 const mapToStateToProps = (state) => ({
@@ -11,7 +11,10 @@ const mapToStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return { addEntry: entry => dispatch(addEntry(entry)) };
+  return {
+    addEntry: (entry) => dispatch(addEntry(entry)),
+    initEntries: (entries) => dispatch(initEntries(entries))
+  };
 };
 
 const inlinBlock = {
@@ -103,7 +106,9 @@ class Form extends React.Component {
 
   componentDidMount() {
     this.firstNameInput.current.focus();
-    
+    let LocalStorageEntries = localStorage.getItem('entries');
+    LocalStorageEntries = JSON.parse(LocalStorageEntries);
+    if(LocalStorageEntries) { this.props.initEntries(LocalStorageEntries) };
   };
 
   handleSubmit = (event) => {
