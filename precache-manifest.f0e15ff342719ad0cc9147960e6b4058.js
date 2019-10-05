@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5631f2b628e6b5b251763dcdaaf2214f",
+    "revision": "7baaabf43d8ebcb75f351a1254157e6d",
     "url": "/IoTplace-V2/index.html"
   },
   {
-    "revision": "a6d667fa4585eff5db5e",
+    "revision": "0a8ab6cb8ce26caef500",
     "url": "/IoTplace-V2/static/css/main.186cfa50.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/IoTplace-V2/static/js/2.adc163b8.chunk.js"
   },
   {
-    "revision": "a6d667fa4585eff5db5e",
-    "url": "/IoTplace-V2/static/js/main.d833db27.chunk.js"
+    "revision": "0a8ab6cb8ce26caef500",
+    "url": "/IoTplace-V2/static/js/main.81d0187d.chunk.js"
   },
   {
     "revision": "9aefed3d9e1d77a85391",
