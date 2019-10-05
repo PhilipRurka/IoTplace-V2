@@ -58,6 +58,10 @@ const ResetAllButton = styled.button({
   fontWeight: '600',
   letterSpacing: '0.5px'
 });
+
+const EmptyEntries = styled.p({
+  color: '#818181'
+});
 /** End End End End End End End End End */
 
 const onRemoveAll = (removeAllEntries) => {
@@ -67,10 +71,15 @@ const onRemoveAll = (removeAllEntries) => {
 const Display = ({ entries, removeAllEntries, removeEntry }) => {
   return (
     <BubbleCard className='col-6-md' label='Display Section'>
-      <ResetAllButton
-        onClick={() => {onRemoveAll(removeAllEntries)}}>
-        Remove All!
-      </ResetAllButton>
+      {(entries && entries.length !== 0)
+      ? (
+        <ResetAllButton
+          onClick={() => {onRemoveAll(removeAllEntries)}}>
+          Remove All!
+        </ResetAllButton>
+      ) : (
+        <EmptyEntries>There are no current entries.<br />Fill out and submit the form.</EmptyEntries>
+      )}
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
         <div className="fields" key={id}>
           {(i > 0) && <HR />}

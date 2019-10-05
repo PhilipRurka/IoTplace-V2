@@ -21,7 +21,7 @@ const Container = styled.div({
 });
 
 const H1 = styled.h1({
-  margin: '0'
+  margin: '0',
 });
 
 const Content = styled.div({
