@@ -44,6 +44,20 @@ const Span = styled.span(
   },
   fontSize
 );
+
+const ResetAllButton = styled.button({
+  position: 'absolute',
+  top: '23px',
+  right: '20px',
+  backgroundColor: 'orange',
+  border: '1px solid orange',
+  color: 'white',
+  padding: '5px 15px',
+  borderRadius: '10px',
+  fontSize: '13px',
+  fontWeight: '600',
+  letterSpacing: '0.5px'
+});
 /** End End End End End End End End End */
 
 const onRemoveAll = (removeAllEntries) => {
@@ -53,10 +67,10 @@ const onRemoveAll = (removeAllEntries) => {
 const Display = ({ entries, removeAllEntries, removeEntry }) => {
   return (
     <BubbleCard className='col-6-md' label='Display Section'>
-      <button
+      <ResetAllButton
         onClick={() => {onRemoveAll(removeAllEntries)}}>
         Remove All!
-      </button>
+      </ResetAllButton>
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
         <div className="fields" key={id}>
           {(i > 0) && <HR />}

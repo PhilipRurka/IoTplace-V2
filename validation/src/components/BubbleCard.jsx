@@ -10,6 +10,7 @@ const Wrapper = styled.div({
 });
 
 const Container = styled.div({
+  position: 'relative',
   display: 'inline-block',
   width: '100%',
   border: '2px solid #A9E5BB',
