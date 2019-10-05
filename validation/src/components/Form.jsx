@@ -5,6 +5,7 @@ import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
 import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
+import Buttons from './Buttons';
 
 const mapToStateToProps = (state) => ({
   errorFields: state.errorFields
@@ -77,16 +78,9 @@ class Form extends React.Component {
       flexBasis: (Half) ? 'calc(50% - 10px)' : '100%'
     }));
 
-  Submit = styled.button({
+  submitButton = {
     marginTop: '30px',
-    border: '1px solid #1cc950',
-    backgroundColor: '#1cc950',
-    borderRadius: '10px',
-    padding: '10px 20px',
-    color: 'white',
-    letterSpacing: '0.5px',
-    fontWeight: '600'
-  });
+  };
 
   ShowRequirements = styled.p(
     {
@@ -203,7 +197,14 @@ class Form extends React.Component {
               onChange={passwordOnChange}
             />
           </Field>
-          <Submit type='submit'>Submit</Submit>
+          <Buttons
+            type='submit'
+            buttonType='basic'
+            color='green'
+            size='lg'
+            addedStyles={this.submitButton}
+            >Submit
+          </Buttons>
         </FormWrapper>
       </BubbleCard>
     );

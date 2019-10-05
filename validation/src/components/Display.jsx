@@ -3,6 +3,7 @@ import BubbleCard from './BubbleCard';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { removeEntry, removeAllEntries } from '../redux/actions';
+import Buttons from './Buttons';
 
 const mapToStateToProps = (state) => ({ entries: state.entries });
 
@@ -45,19 +46,11 @@ const Span = styled.span(
   fontSize
 );
 
-const ResetAllButton = styled.button({
+const removeAllButton = {
   position: 'absolute',
   top: '23px',
-  right: '20px',
-  backgroundColor: 'orange',
-  border: '1px solid orange',
-  color: 'white',
-  padding: '5px 15px',
-  borderRadius: '10px',
-  fontSize: '13px',
-  fontWeight: '600',
-  letterSpacing: '0.5px'
-});
+  right: '20px'
+};
 
 const EmptyEntries = styled.p({
   color: '#818181'
@@ -73,10 +66,15 @@ const Display = ({ entries, removeAllEntries, removeEntry }) => {
     <BubbleCard className='col-6-md' label='Display Section'>
       {(entries && entries.length !== 0)
       ? (
-        <ResetAllButton
-          onClick={() => {onRemoveAll(removeAllEntries)}}>
+        <Buttons
+          buttonType='basic'
+          type='button'
+          color='orange'
+          size='sm'
+          addedStyles={removeAllButton}
+          handleClick={() => {onRemoveAll(removeAllEntries)}}>
           Remove All!
-        </ResetAllButton>
+        </Buttons>
       ) : (
         <EmptyEntries>There are no current entries.<br />Fill out and submit the form.</EmptyEntries>
       )}
