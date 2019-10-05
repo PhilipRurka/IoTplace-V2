@@ -153,6 +153,7 @@ class Form extends React.Component {
       this.emailInput.current.value = '';
       this.passwordInput.current.value = '';
       this.firstNameInput.current.focus();
+      errorFields.failedForm = undefined;
     };
 
     return (
