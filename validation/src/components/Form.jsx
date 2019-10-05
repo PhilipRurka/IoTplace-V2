@@ -23,7 +23,6 @@ const inlinBlock = {
 };
 
 class Form extends React.Component {
-
   state = {
     showingRequirements: false,
     password: ''
@@ -102,7 +101,7 @@ class Form extends React.Component {
     this.firstNameInput.current.focus();
     let LocalStorageEntries = localStorage.getItem('entries');
     LocalStorageEntries = JSON.parse(LocalStorageEntries);
-    if(LocalStorageEntries && LocalStorageEntries.length !== 0) {
+    if(LocalStorageEntries && LocalStorageEntries.entries.length !== 0) {
       this.props.initEntries(LocalStorageEntries.entries)
     };
   };
