@@ -108,7 +108,9 @@ class Form extends React.Component {
     this.firstNameInput.current.focus();
     let LocalStorageEntries = localStorage.getItem('entries');
     LocalStorageEntries = JSON.parse(LocalStorageEntries);
-    if(LocalStorageEntries) { this.props.initEntries(LocalStorageEntries) };
+    if(LocalStorageEntries && LocalStorageEntries.length !== 0) {
+      this.props.initEntries(LocalStorageEntries.entries)
+    };
   };
 
   handleSubmit = (event) => {

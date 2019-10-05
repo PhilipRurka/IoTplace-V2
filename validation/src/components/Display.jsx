@@ -2,8 +2,17 @@ import React from 'react';
 import BubbleCard from './BubbleCard';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
+import { removeEntry, removeAllEntries } from '../redux/actions';
 
 const mapToStateToProps = (state) => ({ entries: state.entries });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removeEntry: (id) => dispatch(removeEntry(id)),
+    removeAllEntries: () => dispatch(removeAllEntries()),
+  };
+};
+
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
 const fontSize = {
@@ -37,9 +46,17 @@ const Span = styled.span(
 );
 /** End End End End End End End End End */
 
-const Display = ({ entries }) => {
+const onRemoveAll = (removeAllEntries) => {
+  removeAllEntries();
+};
+
+const Display = ({ entries, removeAllEntries, removeEntry }) => {
   return (
     <BubbleCard className='col-6-md' label='Display Section'>
+      <button
+        onClick={() => {onRemoveAll(removeAllEntries)}}>
+        Remove All!
+      </button>
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
         <div className="fields" key={id}>
           {(i > 0) && <HR />}
@@ -69,6 +86,6 @@ const Display = ({ entries }) => {
   );
 };
 
-const connectedDisplay = connect(mapToStateToProps) (Display)
+const connectedDisplay = connect(mapToStateToProps, mapDispatchToProps) (Display)
 
 export default connectedDisplay;
