@@ -123,7 +123,7 @@ export const MinButtonStyled = styled.button(({ color, size, addedStyles, icon }
 
   if(icon === 'minus') {
     buttonIcon = {
-      backgroundImage: 'url("/minus.svg")'
+      backgroundImage: 'url("/images/minus.svg")'
     };
   };
 
