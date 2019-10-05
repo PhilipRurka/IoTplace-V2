@@ -5,7 +5,7 @@ import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
 import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
-import Buttons from './Buttons';
+import { BasicButton } from './Buttons';
 
 const mapToStateToProps = (state) => ({
   errorFields: state.errorFields
@@ -141,7 +141,6 @@ class Form extends React.Component {
       Label,
       Input,
       Field,
-      Submit,
       ShowRequirements,
       passwordOnChange
     } = this;
@@ -197,14 +196,13 @@ class Form extends React.Component {
               onChange={passwordOnChange}
             />
           </Field>
-          <Buttons
+          <BasicButton
             type='submit'
-            buttonType='basic'
             color='green'
             size='lg'
             addedStyles={this.submitButton}
             >Submit
-          </Buttons>
+          </BasicButton>
         </FormWrapper>
       </BubbleCard>
     );

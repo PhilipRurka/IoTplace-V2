@@ -3,7 +3,7 @@ import BubbleCard from './BubbleCard';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { removeEntry, removeAllEntries } from '../redux/actions';
-import Buttons from './Buttons';
+import { BasicButton, MinButton } from './Buttons';
 
 const mapToStateToProps = (state) => ({ entries: state.entries });
 
@@ -52,8 +52,18 @@ const removeAllButton = {
   right: '20px'
 };
 
+const removeEntries = {
+  position: 'absolute',
+  top: '0',
+  right: '0'
+};
+
 const EmptyEntries = styled.p({
   color: '#818181'
+});
+
+const Fields = styled.div({
+  position: 'relative'
 });
 /** End End End End End End End End End */
 
@@ -61,26 +71,37 @@ const onRemoveAll = (removeAllEntries) => {
   removeAllEntries();
 };
 
+const onRemoveEntry = (removeEntry, id) => {
+  removeEntry(id);
+};
+
 const Display = ({ entries, removeAllEntries, removeEntry }) => {
   return (
     <BubbleCard className='col-6-md' label='Display Section'>
       {(entries && entries.length !== 0)
       ? (
-        <Buttons
-          buttonType='basic'
+        <BasicButton
           type='button'
           color='orange'
           size='sm'
           addedStyles={removeAllButton}
-          handleClick={() => {onRemoveAll(removeAllEntries)}}>
-          Remove All!
-        </Buttons>
+          handleClick={() => {onRemoveAll(removeAllEntries)}}
+          >Remove All!
+        </BasicButton>
       ) : (
         <EmptyEntries>There are no current entries.<br />Fill out and submit the form.</EmptyEntries>
       )}
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
-        <div className="fields" key={id}>
+        <Fields key={id}>
           {(i > 0) && <HR />}
+          <MinButton
+            type='button'
+            color='red'
+            size='sm'
+            icon='minus'
+            addedStyles={removeEntries}
+            handleClick={() => {onRemoveEntry(removeEntry, id)}}
+            />
           <Field>
             <Label>UUID:</Label>
             <Span>{id}</Span>
@@ -101,7 +122,7 @@ const Display = ({ entries, removeAllEntries, removeEntry }) => {
             <Label>Password:</Label>
             <Span>{password}</Span>
           </Field>
-        </div>
+        </Fields>
       ))}
     </BubbleCard>
   );
