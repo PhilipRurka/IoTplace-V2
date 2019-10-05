@@ -3,7 +3,8 @@ import BubbleCard from './BubbleCard';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
 import { removeEntry, removeAllEntries } from '../redux/actions';
-import { BasicButton, MinButton } from './Buttons';
+import BasicButton from './buttons/BasicButton';
+import IconButton from './buttons/IconButton';
 
 const mapToStateToProps = (state) => ({ entries: state.entries });
 
@@ -13,7 +14,6 @@ const mapDispatchToProps = (dispatch) => {
     removeAllEntries: () => dispatch(removeAllEntries()),
   };
 };
-
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
 const fontSize = {
@@ -94,7 +94,7 @@ const Display = ({ entries, removeAllEntries, removeEntry }) => {
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
         <Fields key={id}>
           {(i > 0) && <HR />}
-          <MinButton
+          <IconButton
             type='button'
             color='red'
             size='sm'

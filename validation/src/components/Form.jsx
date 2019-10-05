@@ -5,7 +5,7 @@ import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
 import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
-import { BasicButton } from './Buttons';
+import BasicButton from './buttons/BasicButton';
 
 const mapToStateToProps = (state) => ({
   errorFields: state.errorFields
