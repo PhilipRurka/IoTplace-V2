@@ -27,7 +27,7 @@ export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon 
   };
 
   if(icon === 'minus') {
-    buttonIcon = 'url("/images/minus.svg")';
+    buttonIcon = 'url("./images/minus.svg")';
   };
 
   const setStyles = {
