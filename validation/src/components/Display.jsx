@@ -40,7 +40,7 @@ const Span = styled.span(
     display: 'inline-block',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
-    width: 'calc(100% - 85px)',
+    width: 'calc(100% - 110px)',
     overflow: 'hidden'
   },
   fontSize
