@@ -20,11 +20,13 @@ const WarningText = styled.div({
   textAlign: 'center',
   marginTop: '30px',
   display: 'inline-block',
-  p: {
+  width: '100%',
+
+  'p': {
     display: 'inline-block',
     margin: '0',
     color: 'orange',
-    '&+p' : { textDecoration: 'underline' }
+    '& + p' : { textDecoration: 'underline' }
   }
 });
 
