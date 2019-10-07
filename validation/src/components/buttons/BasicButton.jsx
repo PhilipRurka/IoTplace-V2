@@ -55,7 +55,7 @@ const BasicButton = ({
   color,
   size,
   children,
-  addedStyles,
+  addedStyles = null,
   handleClick = null,
   theme
 }) => {

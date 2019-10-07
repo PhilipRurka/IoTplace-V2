@@ -57,7 +57,7 @@ const IconButton = ({
   type,
   color,
   size,
-  addedStyles,
+  addedStyles = null,
   handleClick = null,
   icon,
   theme

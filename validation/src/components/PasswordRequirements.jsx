@@ -1,39 +1,71 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../themes/colors';
-  let colorTheme;
+import { breaks } from '../staticHelpers/breakpoints';
 
-const height = '179px';
+let colorTheme;
+const smallHeight = '179px';
+const mediumHeight = '203px';
+const largeHeight = '223px';
+const { lgBreak, mdBreak } = breaks;
+const largeBreakpoint = `@media (min-width: ${mdBreak}) and (max-width: calc(${lgBreak} - 1px))`;
+const smallBreakpoint = `@media (max-width: 430px)`;
+const xxsBreakPoint = `@media (max-width: 331px)`;
 
-const Wrapper = styled.div(({ showingRequirements }) => ({
-  position: 'relative',
-  overflow: 'hidden',
-  height: (showingRequirements) ? height : '0',
-  transition: 'height 0.5s ease'
-}));
+const Wrapper = styled.div(({ showingRequirements }) => {
+  const heightCondition1 = {
+    height: (showingRequirements) ? mediumHeight : '0'
+  };
 
-const Container = styled.div(() => ({
-  position: 'absolute',
-  top: '10px',
-  left: '0',
-  height: `calc(${height} - 20px)`,
-  width: '100%',
-  border: `1px solid ${colorTheme.primaryBorder}`,
-  borderRadius: '10px'
-}));
+  const heightCondition2 = {
+    height: (showingRequirements) ? largeHeight : '0'
+  }
+  
+  return {
+    position: 'relative',
+    overflow: 'hidden',
+    transition: 'height 0.5s ease',
+    height: (showingRequirements) ? smallHeight : '0',
+    [largeBreakpoint]: { ...heightCondition1 },
+    [smallBreakpoint]: { ...heightCondition1 },
+    [xxsBreakPoint]: { ...heightCondition2 },
+  };
+});
+
+const Container = styled.div(() => {
+  const heightCondition1 = {
+    height: `calc(${mediumHeight} - 20px)`
+  };
+
+  const heightCondition2 = {
+    height: `calc(${largeHeight} - 20px)`
+  };
+
+  return {
+    position: 'absolute',
+    top: '10px',
+    left: '0',
+    height: `calc(${smallHeight} - 20px)`,
+    width: '100%',
+    border: `1px solid ${colorTheme.primaryBorder}`,
+    borderRadius: '10px',
+    [largeBreakpoint]: { ...heightCondition1 },
+    [smallBreakpoint]: { ...heightCondition1 },
+    [xxsBreakPoint]: { ...heightCondition2 },
+  };
+});
 
 const Content = styled.div({
   height: '100%',
   padding: '11px 15px'
-
 });
 
 const Label = styled.label({
-  marginBottom: '5px'
+  marginBottom: '5px',
 });
 
 const Ul = styled.ul({
-  margin: '0',
+  margin: '0'
 });
 
 const Li = styled.li(({ success }) => ({
@@ -44,9 +76,8 @@ const Li = styled.li(({ success }) => ({
   '&::after': {
     content: '""',
     position: 'absolute',
-    top: '50%',
-    left: '0%',
-    transform: 'translateY(-50%)',
+    top: '6px',
+    left: '0',
     height: '10px',
     width: '10px',
     borderRadius: '50%',
@@ -59,6 +90,7 @@ const Span = styled.span({
   fontSize: '14px',
   letterSpacing: '0.5px'
 });
+
 
 const PasswordRequirements = ({ state }) => {
   const { showingRequirements, password } = state;

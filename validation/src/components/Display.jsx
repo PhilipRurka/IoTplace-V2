@@ -52,9 +52,7 @@ const Span = styled.span(() => ({
   }));
 
 const removeAllButton = {
-  position: 'absolute',
-  top: '23px',
-  right: '20px'
+  marginBottom: '20px'
 };
 
 const removeEntries = {
