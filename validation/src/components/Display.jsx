@@ -92,37 +92,39 @@ const Display = ({ entries, removeAllEntries, removeEntry }) => {
         <EmptyEntries>There are no current entries.<br />Fill out and submit the form.</EmptyEntries>
       )}
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
-        <Fields key={id}>
+        <div>
           {(i > 0) && <HR />}
-          <IconButton
-            type='button'
-            color='red'
-            size='sm'
-            icon='minus'
-            addedStyles={removeEntries}
-            handleClick={() => {onRemoveEntry(removeEntry, id)}}
-            />
-          <Field>
-            <Label>UUID:</Label>
-            <Span>{id}</Span>
-          </Field>
-          <Field>
-            <Label>First Name:</Label>
-            <Span>{firstName}</Span>
-          </Field>
-          <Field>
-            <Label>Last Name:</Label>
-            <Span>{lastName}</Span>
-          </Field>
-          <Field>
-            <Label>Email:</Label>
-            <Span>{email}</Span>
-          </Field>
-          <Field>
-            <Label>Password:</Label>
-            <Span>{password}</Span>
-          </Field>
-        </Fields>
+          <Fields key={id}>
+            <IconButton
+              type='button'
+              color='red'
+              size='sm'
+              icon='minus'
+              addedStyles={removeEntries}
+              handleClick={() => {onRemoveEntry(removeEntry, id)}}
+              />
+            <Field>
+              <Label>UUID:</Label>
+              <Span>{id}</Span>
+            </Field>
+            <Field>
+              <Label>First Name:</Label>
+              <Span>{firstName}</Span>
+            </Field>
+            <Field>
+              <Label>Last Name:</Label>
+              <Span>{lastName}</Span>
+            </Field>
+            <Field>
+              <Label>Email:</Label>
+              <Span>{email}</Span>
+            </Field>
+            <Field>
+              <Label>Password:</Label>
+              <Span>{password}</Span>
+            </Field>
+          </Fields>
+        </div>
       ))}
     </BubbleCard>
   );
