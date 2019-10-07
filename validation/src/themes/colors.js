@@ -35,7 +35,7 @@ const colorTheme = {
     primaryCopy:                    colors.black,
     secondaryCopy:                  colors.grayApprox
   },
-  night: {
+  nightVision: {
     progression:                    colors.emerald,
     progressionHover:               colors.apple,
     warning:                        colors.tangerine,

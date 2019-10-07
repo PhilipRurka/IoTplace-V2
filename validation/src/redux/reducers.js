@@ -3,12 +3,13 @@ import {
   FAILED_ENTRY,
   INIT_ENTRIES,
   REMOVE_ENTRY,
-  REMOVE_ALL_ENTRIES
+  REMOVE_ALL_ENTRIES,
+  TOGGLE_THEME
 } from './constants';
 
 const initialState = {
   entries: [],
-  theme: 'night',
+  theme: 'cloud',
   errorFields: {}
 };
 
@@ -59,6 +60,14 @@ function rootReducer(state = initialState, action) {
     localStorage.setItem('entries', JSON.stringify(entries));
 
     return Object.assign({}, state, { entries });
+
+  } else if(type === TOGGLE_THEME) {
+    const newTheme = (state.theme === 'cloud')
+      ? 'nightVision' : 'cloud';
+
+    return Object.assign({}, state, {
+      theme: newTheme
+    });
   };
 
   return state;

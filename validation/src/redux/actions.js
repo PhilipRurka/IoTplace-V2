@@ -1,4 +1,10 @@
-import { ADD_ENTRY_MIDDLE, INIT_ENTRIES, REMOVE_ENTRY, REMOVE_ALL_ENTRIES } from './constants';
+import {
+  ADD_ENTRY_MIDDLE,
+  INIT_ENTRIES,
+  REMOVE_ENTRY,
+  REMOVE_ALL_ENTRIES,
+  TOGGLE_THEME
+} from './constants';
 
 export function addEntry(payload) {
   return { type: ADD_ENTRY_MIDDLE, payload };
@@ -14,4 +20,8 @@ export function removeEntry(payload) {
 
 export function removeAllEntries() {
   return { type: REMOVE_ALL_ENTRIES};
+};
+
+export function toggleTheme() {
+  return { type: TOGGLE_THEME};
 };
