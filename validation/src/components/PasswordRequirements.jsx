@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
+import ColorTheme from '../themes/colors';
+  let colorTheme;
 
 const height = '179px';
 
@@ -10,15 +12,15 @@ const Wrapper = styled.div(({ showingRequirements }) => ({
   transition: 'height 0.5s ease'
 }));
 
-const Container = styled.div({
+const Container = styled.div(() => ({
   position: 'absolute',
   top: '10px',
   left: '0',
   height: `calc(${height} - 20px)`,
   width: '100%',
-  border: '1px solid #A9E5BB',
+  border: `1px solid ${colorTheme.primaryBorder}`,
   borderRadius: '10px'
-});
+}));
 
 const Content = styled.div({
   height: '100%',
@@ -32,7 +34,6 @@ const Label = styled.label({
 
 const Ul = styled.ul({
   margin: '0',
-
 });
 
 const Li = styled.li(({ success }) => ({
@@ -49,7 +50,8 @@ const Li = styled.li(({ success }) => ({
     height: '10px',
     width: '10px',
     borderRadius: '50%',
-    backgroundColor: (success) ? '#A9E5BB' : 'red'
+    backgroundColor: (success)
+      ? colorTheme.primaryBorder : colorTheme.error
   }
 }));
 
@@ -60,7 +62,7 @@ const Span = styled.span({
 
 const PasswordRequirements = ({ state }) => {
   const { showingRequirements, password } = state;
-
+  colorTheme = ColorTheme[state.theme];
   let errorRequirements = {};
 
   errorRequirements.minCharacter = (password.length >= 8);

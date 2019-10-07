@@ -6,9 +6,12 @@ import { connect } from 'react-redux';
 import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
 import BasicButton from './buttons/BasicButton';
+import ColorTheme from '../themes/colors';
+  let colorTheme;
 
 const mapToStateToProps = (state) => ({
-  errorFields: state.errorFields
+  errorFields: state.errorFields,
+  theme: state.theme
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -24,6 +27,7 @@ const inlinBlock = {
 
 class Form extends React.Component {
   state = {
+    theme: this.props.theme,
     showingRequirements: false,
     password: ''
   };
@@ -42,59 +46,57 @@ class Form extends React.Component {
     justifyContent: 'space-between',
   });
   
-  Label = styled.label(
-    {
+  Label = styled.label(() => ({
+      color: colorTheme.primaryCopy,
       margin: '0',
       fontWeight: '600',
-      letterSpacing: '0.5px'
-    },
-    inlinBlock
-  );
+      letterSpacing: '0.5px',
+      ...inlinBlock
+  }));
   
-  Input = styled.input(
-    {
+  Input = styled.input(({ error }) => {
+
+    const errorStyles = (error) ? {
+      borderColor: colorTheme.error,
+      '&:focus': { outlineColor: colorTheme.error }
+    } : null;
+
+    return {
+      color: colorTheme.primaryCopy,
       display: 'block',
-      backgroundColor: '#e1fffe',
-      border: '1px solid #A9E5BB',
+      backgroundColor: colorTheme.thirdaryBackground,
+      border: `1px solid ${colorTheme.primaryBorder}`,
       borderRadius: '5px',
       padding: '10px',
-      width: '100%'
-    },
-    (({ error }) => {
-      return (error) && {
-        borderColor: 'red',
-        '&:focus': {
-          outlineColor: 'red'
-        }
-      }
-    })
-  );
+      width: '100%',
+      ...errorStyles
+    }
+  });
   
   Field = styled.div(({ TopChild, Half }) => ({
-      display: 'inline-block',
-      verticalAlign: 'top',
-      marginTop: (TopChild) ? '0' : '20px',
-      flexBasis: (Half) ? 'calc(50% - 10px)' : '100%'
-    }));
+    display: 'inline-block',
+    verticalAlign: 'top',
+    marginTop: (TopChild) ? '0' : '20px',
+    flexBasis: (Half) ? 'calc(50% - 10px)' : '100%'
+  }));
 
   submitButton = {
     marginTop: '30px',
   };
 
-  ShowRequirements = styled.p(
-    {
-      margin: '0',
-      float: 'right',
-      fontSize: '12px',
-      fontWeight: '600',
-      letterSpacing: '0.5px',
-      marginTop: '6px',
-      cursor: 'pointer',
-      textDecoration: 'underline',
-      userSelect: 'none'
-    },
-    inlinBlock
-  );
+  ShowRequirements = styled.p(() => ({
+    color: colorTheme.primaryCopy,
+    margin: '0',
+    float: 'right',
+    fontSize: '12px',
+    fontWeight: '600',
+    letterSpacing: '0.5px',
+    marginTop: '6px',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    userSelect: 'none',
+    ...inlinBlock
+  }));
   /** End End End End End End End End End */
 
   componentDidMount() {
@@ -143,8 +145,11 @@ class Form extends React.Component {
       ShowRequirements,
       passwordOnChange
     } = this;
+
+    colorTheme = ColorTheme[state.theme];
+
     const { showingRequirements } = this.state;
-    const { errorFields } = this.props;
+    const { errorFields, theme } = this.props;
 
     if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
       this.firstNameInput.current.value = '';
@@ -156,7 +161,7 @@ class Form extends React.Component {
     };
 
     return (
-      <BubbleCard label='Form Section'>
+      <BubbleCard label='Form Section' theme={theme}>
         <FormWrapper onSubmit={this.handleSubmit}>
           <Field TopChild Half>
             <Label>First Name</Label>
@@ -200,6 +205,7 @@ class Form extends React.Component {
             color='green'
             size='lg'
             addedStyles={this.submitButton}
+            theme={theme}
             >Submit
           </BasicButton>
         </FormWrapper>

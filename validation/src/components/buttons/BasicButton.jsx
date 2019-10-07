@@ -1,21 +1,24 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
+import ColorTheme from '../../themes/colors';
+  let colorTheme;
 
-const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
+const BasicButtonStyled = styled.button(({ theme ,color, size, addedStyles }) => {
   let fontColor, bgColor, hoverColor, padding, fontSize;
 
+  // Turn this into a helper.
   if(color === 'green') {
     fontColor = 'white';
-    bgColor = '#1cc950';
-    hoverColor = '#15933B';
+    bgColor = colorTheme.progression;
+    hoverColor = colorTheme.progressionHover;
   } else if(color === 'orange') {
     fontColor = 'white';
-    bgColor = '#F18F01';
-    hoverColor = '#B06901';
+    bgColor = colorTheme.warning;
+    hoverColor = colorTheme.warningHover;
   } else if(color === 'red') {
     fontColor = 'white';
-    bgColor = '#C1292E';
-    hoverColor = '#8D1E22';
+    bgColor = colorTheme.error;
+    hoverColor = colorTheme.errorHover;
   };
 
   if(size === 'lg') {
@@ -53,8 +56,11 @@ const BasicButton = ({
   size,
   children,
   addedStyles,
-  handleClick = null
+  handleClick = null,
+  theme
 }) => {
+
+colorTheme = ColorTheme[theme];
 
   return (
     <BasicButtonStyled

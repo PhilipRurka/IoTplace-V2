@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
+import ColorTheme from '../../themes/colors';
 
-export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon }) => {
+export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon, theme}) => {
   let fontColor, bgColor, hoverColor, padding, borderWidth, buttonIcon;
+  const COLORS = ColorTheme[theme];
 
   if(color === 'green') {
     fontColor = 'white';
-    bgColor = '#1cc950';
-    hoverColor = '#15933B';
+    bgColor = COLORS.progression;
+    hoverColor = COLORS.progressionHover;
   } else if(color === 'orange') {
     fontColor = 'white';
-    bgColor = '#F18F01';
-    hoverColor = '#B06901';
+    bgColor = COLORS.warning;
+    hoverColor = COLORS.warningHover;
   } else if(color === 'red') {
     fontColor = 'white';
-    bgColor = '#C1292E';
-    hoverColor = '#8D1E22';
+    bgColor = COLORS.error;
+    hoverColor = COLORS.errorHover;
   };
 
   if(size === 'lg') {
@@ -57,7 +59,8 @@ const IconButton = ({
   size,
   addedStyles,
   handleClick = null,
-  icon
+  icon,
+  theme
 }) => {
 
   return (
@@ -68,6 +71,7 @@ const IconButton = ({
       addedStyles={addedStyles}
       onClick={handleClick}
       icon={icon}
+      theme={theme}
     />
   );
 };

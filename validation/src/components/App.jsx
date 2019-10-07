@@ -1,13 +1,23 @@
 import React from 'react';
 import Form from './Form';
 import Display from './Display';
-import { Provider } from 'react-redux';
-import store from '../redux/stores';
 import styled from '@emotion/styled/macro';
+import { connect } from 'react-redux';
+import ColorTheme from '../themes/colors';
+  let colorTheme;
+  
+const mapToStateToProps = (state) => ({ theme: state.theme });
+
+const GlobalWrapper = styled.div(() => ({
+  height: '100%',
+  minHeight: '100vh',
+  backgroundColor: colorTheme.primaryBackground
+}));
 
 const WarningText = styled.div({
   textAlign: 'center',
-  marginTop: '30px'
+  marginTop: '30px',
+  display: 'inline-block'
 });
 
 const PTag = styled.p({
@@ -17,9 +27,11 @@ const PTag = styled.p({
   '&+p' : { textDecoration: 'underline' }
 });
 
-function App() {
+const App = ({ theme }) => {
+  colorTheme = ColorTheme[theme];
+
   return (
-    <Provider store={store}>
+    <GlobalWrapper>
       <div className="container">
         <WarningText>
           <PTag>Warning, your password will be displayed in the Display Section.&nbsp;</PTag>
@@ -28,8 +40,10 @@ function App() {
         <Form />
         <Display />
       </div>
-    </Provider>
+    </GlobalWrapper>
   );
-}
+};
 
-export default App;
+const connectedForm = connect(mapToStateToProps) (App);
+
+export default connectedForm;

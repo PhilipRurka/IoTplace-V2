@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   entries: [],
+  theme: 'night',
   errorFields: {}
 };
 

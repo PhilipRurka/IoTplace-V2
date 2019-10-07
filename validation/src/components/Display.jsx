@@ -5,8 +5,13 @@ import styled from '@emotion/styled/macro';
 import { removeEntry, removeAllEntries } from '../redux/actions';
 import BasicButton from './buttons/BasicButton';
 import IconButton from './buttons/IconButton';
+import ColorTheme from '../themes/colors';
+  let colorTheme;
 
-const mapToStateToProps = (state) => ({ entries: state.entries });
+const mapToStateToProps = (state) => ({
+  entries: state.entries,
+  theme: state.theme
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -15,7 +20,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+let copyColor;
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
+
 const fontSize = {
   fontSize: '14px',
   display: 'inline-block',
@@ -26,25 +33,23 @@ const HR = styled.hr({});
 
 const Field = styled.div({});
 
-const Label = styled.label(
-  {
-    fontWeight: '600',
-    width: '85px',
-    margin: '0'
-  },
-  fontSize
-);
+const Label = styled.label(() => ({
+  fontWeight: '600',
+  width: '85px',
+  margin: '0',
+  ...fontSize,
+  ...copyColor
+}));
 
-const Span = styled.span(
-  {
-    display: 'inline-block',
-    whiteSpace: 'nowrap',
-    textOverflow: 'ellipsis',
-    width: 'calc(100% - 110px)',
-    overflow: 'hidden'
-  },
-  fontSize
-);
+const Span = styled.span(() => ({
+  display: 'inline-block',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+  width: 'calc(100% - 110px)',
+  overflow: 'hidden',
+  ...fontSize,
+  ...copyColor
+  }));
 
 const removeAllButton = {
   position: 'absolute',
@@ -58,9 +63,9 @@ const removeEntries = {
   right: '0'
 };
 
-const EmptyEntries = styled.p({
-  color: '#818181'
-});
+const EmptyEntries = styled.p(() => ({
+    color: colorTheme.secondaryCopy
+}));
 
 const Fields = styled.div({
   position: 'relative'
@@ -75,9 +80,11 @@ const onRemoveEntry = (removeEntry, id) => {
   removeEntry(id);
 };
 
-const Display = ({ entries, removeAllEntries, removeEntry }) => {
+const Display = ({ theme, entries, removeAllEntries, removeEntry }) => {
+  colorTheme = ColorTheme[theme];
+  copyColor = { color: colorTheme.primaryCopy };
   return (
-    <BubbleCard className='col-6-md' label='Display Section'>
+    <BubbleCard className='col-6-md' label='Display Section' theme={theme}>
       {(entries && entries.length !== 0)
       ? (
         <BasicButton
@@ -86,15 +93,16 @@ const Display = ({ entries, removeAllEntries, removeEntry }) => {
           size='sm'
           addedStyles={removeAllButton}
           handleClick={() => {onRemoveAll(removeAllEntries)}}
+          theme={theme}
           >Remove All!
         </BasicButton>
       ) : (
-        <EmptyEntries>There are no current entries.<br />Fill out and submit the form.</EmptyEntries>
+        <EmptyEntries theme={theme}>There are no current entries.<br />Fill out and submit the form.</EmptyEntries>
       )}
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
-        <div>
+        <div key={id}>
           {(i > 0) && <HR />}
-          <Fields key={id}>
+          <Fields>
             <IconButton
               type='button'
               color='red'
@@ -102,6 +110,7 @@ const Display = ({ entries, removeAllEntries, removeEntry }) => {
               icon='minus'
               addedStyles={removeEntries}
               handleClick={() => {onRemoveEntry(removeEntry, id)}}
+              theme={theme}
               />
             <Field>
               <Label>UUID:</Label>
