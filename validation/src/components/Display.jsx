@@ -8,9 +8,9 @@ import IconButton from './buttons/IconButton';
 import ColorTheme from '../themes/colors';
   let colorTheme;
 
-const mapToStateToProps = (state) => ({
-  entries: state.entries,
-  theme: state.theme
+const mapToStateToProps = ({ entries, theme }) => ({
+  entries,
+  theme
 });
 
 const mapDispatchToProps = (dispatch) => {

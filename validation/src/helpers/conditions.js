@@ -33,6 +33,7 @@ export const passwordSpecialTest = (password) => {
 };
 
 /** Test for a number in password */
-export const passwordNumberTest = (password) => (
-  password.match(/\d+/g) && password.match(/\d+/g).length > 0
-);
+export const passwordNumberTest = (password) => {
+  const test = password.match(/\d+/g) && password.match(/\d+/g).length > 0
+  return (test) ? true : false;
+};

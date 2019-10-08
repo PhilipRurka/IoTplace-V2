@@ -13,20 +13,14 @@ import {
   passwordNumberTest
 } from '../helpers/conditions';
 
-const errorRequirements = {
-  firstName: true,
-  lastName: true,
-  email: true,
-  password: true,
-  failedForm: false
-};
 
 export function formValidation({ dispatch }) {
   return function(next) {
     return function(action) {
       if(action.type === ADD_ENTRY_MIDDLE) {
         const { firstName, lastName, email, password} = action.payload;
-
+        
+        let errorRequirements = { failedForm: false };
         /** Names Names Names Names Names Names */
         errorRequirements.firstName = nameLengthTest(firstName);
         errorRequirements.lastName = nameLengthTest(lastName);

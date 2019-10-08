@@ -4,13 +4,17 @@ import {
   INIT_ENTRIES,
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
-  TOGGLE_THEME
+  TOGGLE_THEME,
+  UPDATE_PASSWORD,
+  TOGGLE_REQUIREMENTS
 } from './constants';
 
 const initialState = {
   entries: [],
   theme: 'cloud',
-  errorFields: {}
+  errorFields: {},
+  password: '',
+  showingRequirements: false
 };
 
 // Look into moving some of this logic into the middleware.
@@ -19,6 +23,7 @@ function rootReducer(state = initialState, action) {
   if(type === ADD_ENTRY) {
     const entries = state.entries.concat(payload.entries);
     localStorage.setItem('entries', JSON.stringify({ entries }));
+
 
     return Object.assign({}, state, {
       entries,
@@ -36,7 +41,6 @@ function rootReducer(state = initialState, action) {
     });
 
   } else if(type === REMOVE_ENTRY) {
-
     const entries = [...state.entries];
 
     let index;
@@ -51,9 +55,7 @@ function rootReducer(state = initialState, action) {
     entries.splice(index, 1);
     localStorage.setItem('entries', JSON.stringify({ entries }));
 
-    return Object.assign({}, state, {
-      entries: entries
-    });
+    return Object.assign({}, state, { entries });
 
   } else if(type === REMOVE_ALL_ENTRIES) {
     const entries = [];
@@ -68,6 +70,13 @@ function rootReducer(state = initialState, action) {
     return Object.assign({}, state, {
       theme: newTheme
     });
+  } else if(type === UPDATE_PASSWORD) {
+    return Object.assign({}, state, { password: payload });
+
+  } else if(type === TOGGLE_REQUIREMENTS) {
+    const showingRequirements = (state.showingRequirements) ? false : true;
+
+    return Object.assign({}, state, { showingRequirements })
   };
 
   return state;

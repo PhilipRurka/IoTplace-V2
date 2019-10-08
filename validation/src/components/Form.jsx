@@ -3,32 +3,35 @@ import PasswordRequirements from './PasswordRequirements';
 import BubbleCard from './BubbleCard';
 import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
-import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
 import BasicButton from './buttons/BasicButton';
 import ColorTheme from '../themes/colors';
+import {
+  addEntry,
+  initEntries,
+  updatePassword,
+  toggleRequirements
+} from '../redux/actions';
 
-const mapToStateToProps = (state) => ({
-  errorFields: state.errorFields,
-  theme: state.theme
+const mapToStateToProps = ({ errorFields, theme, password, showingRequirements }) => ({
+  errorFields,
+  theme,
+  password,
+  showingRequirements
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     addEntry: (entry) => dispatch(addEntry(entry)),
-    initEntries: (entries) => dispatch(initEntries(entries))
+    initEntries: (entries) => dispatch(initEntries(entries)),
+    updatePassword: (password) => dispatch(updatePassword(password)),
+    toggleRequirements: (boolean) => dispatch(toggleRequirements(boolean))
   };
 };
 
 let colorTheme;
 
 class Form extends React.Component {
-  state = {
-    theme: this.props.theme,
-    showingRequirements: false,
-    password: ''
-  };
-
   /** Ref Ref Ref Ref Ref Ref Ref */
   firstNameInput = React.createRef();
   lastNameInput = React.createRef();
@@ -122,31 +125,38 @@ class Form extends React.Component {
     });
   };
 
-  handleShowRequirement = () => {
-    let { showingRequirements } = this.state;
+  handleShowRequirement = (toggleRequirements) => {
+    toggleRequirements();
+
+    let { showingRequirements } = this.props;
     showingRequirements = !showingRequirements;
     this.setState({ showingRequirements });
   };
 
-  passwordOnChange = () => {
-    this.setState({ password: this.passwordInput.current.value })
+  passwordOnChange = (updatePassword) => {
+    updatePassword(this.passwordInput.current.value);
   };
 
   render() {
     const {
-      state,
       FormWrapper,
       Label,
       Input,
       Field,
       ShowRequirements,
-      passwordOnChange
+      passwordOnChange,
+      props,
+      handleShowRequirement,
+      handleSubmit,
+      firstNameInput,
+      lastNameInput,
+      emailInput,
+      passwordInput,
+      submitButton
     } = this;
 
-    colorTheme = ColorTheme[state.theme];
-
-    const { showingRequirements } = this.state;
-    const { errorFields, theme } = this.props;
+    const { errorFields, theme, updatePassword, showingRequirements, toggleRequirements } = props;
+    colorTheme = ColorTheme[theme];
 
     if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
       this.firstNameInput.current.value = '';
@@ -157,51 +167,53 @@ class Form extends React.Component {
       errorFields.failedForm = undefined;
     };
 
+    const { firstName, lastName, email, password } = errorFields;
+
     return (
       <BubbleCard label='Form Section' theme={theme}>
-        <FormWrapper onSubmit={this.handleSubmit}>
+        <FormWrapper onSubmit={handleSubmit}>
           <Field TopChild Half>
             <Label>First Name</Label>
             <Input
               type='text'
-              ref={this.firstNameInput}
-              error={errorFields.firstName}
+              ref={firstNameInput}
+              error={firstName}
             />
           </Field>
           <Field TopChild Half>
             <Label>Last Name</Label>
             <Input
               type='text'
-              ref={this.lastNameInput}
-              error={errorFields.lastName}
+              ref={lastNameInput}
+              error={lastName}
             />
           </Field>
           <Field>
             <Label>Email Adress</Label>
             <Input
               type='email'
-              ref={this.emailInput}
-              error={errorFields.email}
+              ref={emailInput}
+              error={email}
             />
           </Field>
           <Field>
             <Label>Password</Label>
-            <ShowRequirements onClick={this.handleShowRequirement}>
+            <ShowRequirements onClick={() => (handleShowRequirement(toggleRequirements))}>
               {(showingRequirements) ? 'Hide Requirements' : 'Show Requirements'}
             </ShowRequirements>
-            <PasswordRequirements state={state} />
+            <PasswordRequirements />
             <Input
               type='password'
-              ref={this.passwordInput}
-              error={errorFields.password}
-              onChange={passwordOnChange}
+              ref={passwordInput}
+              error={password}
+              onChange={() => (passwordOnChange(updatePassword))}
             />
           </Field>
           <BasicButton
             type='submit'
             color='green'
             size='lg'
-            addedStyles={this.submitButton}
+            addedStyles={submitButton}
             theme={theme}
             >Submit
           </BasicButton>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../themes/colors';
 import { breaks } from '../helpers/breakpoints';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   passwordLengthTest,
   passwordUpperTest,
@@ -10,6 +10,12 @@ import {
   passwordSpecialTest,
   passwordNumberTest
 } from '../helpers/conditions';
+
+const mapToStateToProps = ({ theme, password, showingRequirements }) => ({
+  theme,
+  password,
+  showingRequirements
+});
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -124,10 +130,8 @@ const Span = styled.span({
 /** End End End End End End End End End */
 
 /** Param => state: - (Object) - The state of the Form Component. */
-const PasswordRequirements = ({ state }) => {
-  /** Deconstructing */
-  const { showingRequirements, password } = state;
-  colorTheme = ColorTheme[state.theme];
+const PasswordRequirements = ({ showingRequirements, password, theme }) => {
+  colorTheme = ColorTheme[theme];
   /** Object containing the list of requirements and whether they have succeeded or not. */
   let successRequirements = {
     minCharacter: passwordLengthTest(password),
@@ -138,7 +142,13 @@ const PasswordRequirements = ({ state }) => {
   };
 
   /** Deconstructing */
-  const { minCharacter, upperCase, lowerCase, special, number } = successRequirements;
+  const {
+    minCharacter,
+    upperCase,
+    lowerCase,
+    special,
+    number
+  } = successRequirements;
 
   return (
     <Wrapper showingRequirements={showingRequirements}>
@@ -168,8 +178,6 @@ const PasswordRequirements = ({ state }) => {
   );
 };
 
-PasswordRequirements.propTypes = {
-  state: PropTypes.object.isRequired
-};
+const connectedPasswordRequirements = connect(mapToStateToProps) (PasswordRequirements);
 
-export default PasswordRequirements;
+export default connectedPasswordRequirements;

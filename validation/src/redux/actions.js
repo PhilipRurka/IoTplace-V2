@@ -3,7 +3,9 @@ import {
   INIT_ENTRIES,
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
-  TOGGLE_THEME
+  TOGGLE_THEME,
+  UPDATE_PASSWORD,
+  TOGGLE_REQUIREMENTS
 } from './constants';
 
 export function addEntry(payload) {
@@ -19,9 +21,17 @@ export function removeEntry(payload) {
 };
 
 export function removeAllEntries() {
-  return { type: REMOVE_ALL_ENTRIES};
+  return { type: REMOVE_ALL_ENTRIES };
 };
 
 export function toggleTheme() {
-  return { type: TOGGLE_THEME};
+  return { type: TOGGLE_THEME };
+};
+
+export function updatePassword(payload) {
+  return { type: UPDATE_PASSWORD, payload };
+};
+
+export function toggleRequirements() {
+  return { type: TOGGLE_REQUIREMENTS };
 };
