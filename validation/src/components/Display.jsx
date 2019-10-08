@@ -21,8 +21,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 let copyColor;
-/** Styled Styled Styled Styled Styled Styled Styled Styled */
 
+/** Styled Styled Styled Styled Styled Styled Styled Styled */
 const fontSize = {
   fontSize: '14px',
   display: 'inline-block',

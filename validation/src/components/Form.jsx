@@ -99,13 +99,16 @@ class Form extends React.Component {
   }));
   /** End End End End End End End End End */
 
-  componentDidMount() {
-    this.firstNameInput.current.focus();
+  componentWillMount() {
     let LocalStorageEntries = localStorage.getItem('entries');
     LocalStorageEntries = JSON.parse(LocalStorageEntries);
     if(LocalStorageEntries && LocalStorageEntries.entries.length !== 0) {
       this.props.initEntries(LocalStorageEntries.entries)
     };
+  };
+
+  componentDidMount() {
+    this.firstNameInput.current.focus();
   };
 
   handleSubmit = (event) => {
@@ -155,7 +158,14 @@ class Form extends React.Component {
       submitButton
     } = this;
 
-    const { errorFields, theme, updatePassword, showingRequirements, toggleRequirements } = props;
+    const {
+      errorFields,
+      theme,
+      updatePassword,
+      showingRequirements,
+      toggleRequirements
+    } = props;
+
     colorTheme = ColorTheme[theme];
 
     if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
@@ -165,6 +175,7 @@ class Form extends React.Component {
       this.passwordInput.current.value = '';
       this.firstNameInput.current.focus();
       errorFields.failedForm = undefined;
+      updatePassword('');
     };
 
     const { firstName, lastName, email, password } = errorFields;

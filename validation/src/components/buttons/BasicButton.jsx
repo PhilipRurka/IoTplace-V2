@@ -2,26 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../../themes/colors';
 import PropTypes from 'prop-types';
+import { buttonColor } from '../../helpers/general';
 
 let colorTheme;
 
 const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
-  let fontColor, bgColor, hoverColor, padding, fontSize;
-
-  // Turn this into a helper.
-  if(color === 'green') {
-    fontColor = 'white';
-    bgColor = colorTheme.progression;
-    hoverColor = colorTheme.progressionHover;
-  } else if(color === 'orange') {
-    fontColor = 'white';
-    bgColor = colorTheme.warning;
-    hoverColor = colorTheme.warningHover;
-  } else if(color === 'red') {
-    fontColor = 'white';
-    bgColor = colorTheme.error;
-    hoverColor = colorTheme.errorHover;
-  };
+  const buttonColors = buttonColor(color, colorTheme);
+  let padding, fontSize;
 
   if(size === 'lg') {
     padding = '10px 20px';
@@ -39,13 +26,7 @@ const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
     fontWeight: '600',
     padding: padding,
     fontSize: fontSize,
-    color: fontColor,
-    borderColor: bgColor,
-    backgroundColor: bgColor,
-    '&:hover': {
-      backgroundColor: hoverColor,
-      borderColor: hoverColor
-    }
+    ...buttonColors
   }
 
   return {...setStyles, ...addedStyles};

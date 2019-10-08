@@ -36,7 +36,7 @@ function rootReducer(state = initialState, action) {
   /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */
   } else if(type === FAILED_ENTRY) {
     return Object.assign({}, state, {
-      errorFields: {...payload.errorFields}
+      errorFields: { ...payload.errorFields }
     });
 
   /** INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES */
