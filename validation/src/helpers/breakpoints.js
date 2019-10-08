@@ -6,6 +6,7 @@ export const breaks = {
   xsBreak:        '450px'
 };
 
+/** Preset Break Points based off of the Bootstrap. */
 export const breakPoints = {
   breakPointXL:   ` @media (min-width: ${breaks.xlBreak})`,
   breakPointLG:   ` @media (min-width: ${breaks.lgBreak})`,

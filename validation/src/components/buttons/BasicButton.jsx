@@ -9,6 +9,7 @@ let colorTheme;
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
 const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
+  /** Gets and stores the styles involving color. */
   const buttonColors = buttonColor(color, colorTheme);
   let padding, fontSize;
 
@@ -26,8 +27,8 @@ const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
     borderRadius: '10px',
     letterSpacing: '0.5px',
     fontWeight: '600',
-    padding: padding,
-    fontSize: fontSize,
+    padding,
+    fontSize,
     ...buttonColors
   }
 
@@ -58,6 +59,7 @@ colorTheme = ColorTheme[theme];
   );
 };
 
+// FRONTEND: This is not working.
 BasicButton.propTypes = {
   theme:          PropTypes.string.isRequired,
   type:           PropTypes.string.isRequired,
@@ -65,7 +67,7 @@ BasicButton.propTypes = {
   size:           PropTypes.string.isRequired,
   children:       PropTypes.string.isRequired,
   addedStyles:    PropTypes.object,
-  onClick:        PropTypes.func,
+  handleClick:    PropTypes.func,
 };
 
 

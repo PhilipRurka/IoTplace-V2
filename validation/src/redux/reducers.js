@@ -30,7 +30,8 @@ function rootReducer(state = initialState, action) {
 
     return Object.assign({}, state, {
       entries,
-      errorFields: { ...state.errorFields, ...payload.errorFields }
+      errorFields: { ...state.errorFields, ...payload.errorFields },
+      password: ''
     });
 
   /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */

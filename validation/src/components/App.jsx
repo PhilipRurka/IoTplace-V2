@@ -6,17 +6,20 @@ import { connect } from 'react-redux';
 import ColorTheme from '../themes/colors';
 import { toggleTheme } from '../redux/actions';
 
-let colorTheme;  
 const mapToStateToProps = (state) => ({ theme: state.theme });
 const mapDispatchToProps = (dispatch) => ({ toggleTheme: () => dispatch(toggleTheme())});
 
+/** Colors of the current theme. */
+let colorTheme;
+
+/** Styled Styled Styled Styled Styled Styled Styled Styled */
 const GlobalWrapper = styled.div(() => ({
   height: '100%',
   minHeight: '100vh',
   backgroundColor: colorTheme.primaryBackground
 }));
 
-const WarningText = styled.div({
+const WarningText = styled.div(() => ({
   textAlign: 'center',
   marginTop: '30px',
   display: 'inline-block',
@@ -25,16 +28,17 @@ const WarningText = styled.div({
   'p': {
     display: 'inline-block',
     margin: '0',
-    color: 'orange',
+    color: colorTheme.warning,
     '& + p' : { textDecoration: 'underline' }
   }
-});
+}));
 
 const CurrentTheme = styled.div(() => ({
   textAlign: 'center',
 
   '& > *': {
     color: `${colorTheme.progression}`,
+
     '&:hover': {
       color: `${colorTheme.progressionHover}`,
     }
@@ -55,15 +59,20 @@ const CurrentTheme = styled.div(() => ({
     cursor: 'pointer'
   }
 }));
+/** End End End End End End End End */
 
+/** Triggered when the theme toggle link is clicked */
 const onClickChangeTheme = (toggleTheme) => {
+  /** Toggles the theme. */
   toggleTheme();
 };
 
 const App = ({ theme, toggleTheme }) => {
   colorTheme = ColorTheme[theme];
 
+  /** This splits up camel case strings. */
   let formatedTheme = theme.replace(/([a-z])([A-Z])/g, '$1 $2');
+  /** This uppercase's the first letter of a string. */
   formatedTheme = formatedTheme.charAt(0).toUpperCase() + formatedTheme.slice(1);
 
   return (

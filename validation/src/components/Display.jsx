@@ -6,7 +6,6 @@ import { removeEntry, removeAllEntries } from '../redux/actions';
 import BasicButton from './buttons/BasicButton';
 import IconButton from './buttons/IconButton';
 import ColorTheme from '../themes/colors';
-  let colorTheme;
 
 const mapToStateToProps = ({ entries, theme }) => ({
   entries,
@@ -19,42 +18,44 @@ const mapDispatchToProps = (dispatch) => {
     removeAllEntries: () => dispatch(removeAllEntries()),
   };
 };
-
-let copyColor;
+/** Colors of the current theme. */
+let colorTheme;
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
+/** Shared color styles. */
+let copyColor;
+
 const fontSize = {
   fontSize: '14px',
   display: 'inline-block',
   verticalAlign: 'top'
 }
 
-const HR = styled.hr({});
-
-const Field = styled.div({});
-
-const Label = styled.label(() => ({
-  fontWeight: '600',
-  width: '85px',
-  margin: '0',
-  ...fontSize,
-  ...copyColor
+const Field = styled.div(() => ({
+  'label': {
+    fontWeight: '600',
+    width: '85px',
+    margin: '0',
+    ...fontSize,
+    ...copyColor
+  },
+  'span': {
+    display: 'inline-block',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    width: 'calc(100% - 110px)',
+    overflow: 'hidden',
+    ...fontSize,
+    ...copyColor
+  }
 }));
 
-const Span = styled.span(() => ({
-  display: 'inline-block',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  width: 'calc(100% - 110px)',
-  overflow: 'hidden',
-  ...fontSize,
-  ...copyColor
-  }));
-
+/** This is used in the entry removal button's Props. */
 const removeAllButton = {
   marginBottom: '20px'
 };
 
+/** This is used in the removal all entries button Props. */
 const removeEntries = {
   position: 'absolute',
   top: '0',
@@ -70,17 +71,23 @@ const Fields = styled.div({
 });
 /** End End End End End End End End End */
 
+/** Triggered when the Remove All button is clicked. */
 const onRemoveAll = (removeAllEntries) => {
+  /** Removes all Entries. */
   removeAllEntries();
 };
 
+/** Triggered when the remove entry button is clicked. */
 const onRemoveEntry = (removeEntry, id) => {
+  /** Removes a single entry. */
   removeEntry(id);
 };
+
 
 const Display = ({ theme, entries, removeAllEntries, removeEntry }) => {
   colorTheme = ColorTheme[theme];
   copyColor = { color: colorTheme.primaryCopy };
+  
   return (
     <BubbleCard className='col-6-md' label='Display Section' theme={theme}>
       {(entries && entries.length !== 0)
@@ -99,7 +106,7 @@ const Display = ({ theme, entries, removeAllEntries, removeEntry }) => {
       )}
       {entries.map(({ id, firstName, lastName, email, password }, i) => (
         <div key={id}>
-          {(i > 0) && <HR />}
+          {(i > 0) && <hr />}
           <Fields>
             <IconButton
               type='button'
@@ -111,24 +118,24 @@ const Display = ({ theme, entries, removeAllEntries, removeEntry }) => {
               theme={theme}
               />
             <Field>
-              <Label>UUID:</Label>
-              <Span>{id}</Span>
+              <label>UUID:</label>
+              <span>{id}</span>
             </Field>
             <Field>
-              <Label>First Name:</Label>
-              <Span>{firstName}</Span>
+              <label>First Name:</label>
+              <span>{firstName}</span>
             </Field>
             <Field>
-              <Label>Last Name:</Label>
-              <Span>{lastName}</Span>
+              <label>Last Name:</label>
+              <span>{lastName}</span>
             </Field>
             <Field>
-              <Label>Email:</Label>
-              <Span>{email}</Span>
+              <label>Email:</label>
+              <span>{email}</span>
             </Field>
             <Field>
-              <Label>Password:</Label>
-              <Span>{password}</Span>
+              <label>Password:</label>
+              <span>{password}</span>
             </Field>
           </Fields>
         </div>

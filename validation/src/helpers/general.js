@@ -1,3 +1,4 @@
+/** This is used for returning the correct colors for buttons. */
 export const buttonColor = (selectedColor, colorTheme) => {
   let color, backgroundColor, hoverColor;
 

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../themes/colors';
-  let colorTheme;
+
+/** Colors of the current theme. */
+let colorTheme;
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
 const Wrapper = styled.div({

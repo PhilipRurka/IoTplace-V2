@@ -4,11 +4,14 @@ import ColorTheme from '../../themes/colors';
 import PropTypes from 'prop-types';
 import { buttonColor } from '../../helpers/general';
 
+/** Colors of the current theme. */
 let colorTheme;
 
+/** Styled Styled Styled Styled Styled Styled Styled Styled */
 export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon, theme}) => {
+  /** Gets and stores the styles involving color. */
   const buttonColors = buttonColor(color, colorTheme);
-  let padding, borderWidth, buttonIcon;
+  let padding, borderWidth, backgroundImage;
 
   if(size === 'lg') {
     padding = '10px';
@@ -19,7 +22,7 @@ export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon,
   };
 
   if(icon === 'minus') {
-    buttonIcon = 'url("./images/minus.svg")';
+    backgroundImage = 'url("./images/minus.svg")';
   };
 
   const setStyles = {
@@ -27,24 +30,24 @@ export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon,
     borderRadius: '50%',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
-    padding: padding,
-    borderWidth: borderWidth,
-    backgroundImage: buttonIcon,
+    padding,
+    borderWidth,
+    backgroundImage,
     ...buttonColors
   }
 
   return {...setStyles, ...addedStyles};
 });
-
+/** End End End End End End End End */
 
 const IconButton = ({
+  theme,
   type,
   color,
   size,
   addedStyles = null,
   handleClick = null,
-  icon,
-  theme
+  icon
 }) => {
 
   colorTheme = ColorTheme[theme];
@@ -62,6 +65,7 @@ const IconButton = ({
   );
 };
 
+// FRONTEND: This is not working.
 IconButton.propTypes = {
   theme:          PropTypes.string.isRequired,
   type:           PropTypes.string.isRequired,

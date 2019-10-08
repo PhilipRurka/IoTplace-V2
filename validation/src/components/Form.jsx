@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+/** Colors of the current theme. */
 let colorTheme;
 
 class Form extends React.Component {
@@ -55,7 +56,7 @@ class Form extends React.Component {
   }));
   
   Input = styled.input(({ error }) => {
-
+    /** If the field failed during the form validation process. */
     const errorStyles = (error) ? {
       borderColor: colorTheme.error,
       '&:focus': { outlineColor: colorTheme.error }
@@ -80,6 +81,7 @@ class Form extends React.Component {
     flexBasis: (Half) ? 'calc(50% - 10px)' : '100%'
   }));
 
+  /** This is used in the submit button's Props. */
   submitButton = {
     marginTop: '30px'
   };
@@ -100,44 +102,49 @@ class Form extends React.Component {
   /** End End End End End End End End End */
   
   componentDidMount() {
+    /** Applies focus on the first input. */
     this.firstNameInput.current.focus();
+    /** Gets and stores Entries from LocalStorage. */
     let LocalStorageEntries = localStorage.getItem('entries');
     LocalStorageEntries = JSON.parse(LocalStorageEntries);
+    /** If there are entries in LocalStorage */
     if(LocalStorageEntries && LocalStorageEntries.entries.length !== 0) {
-      this.props.initEntries(LocalStorageEntries.entries)
+      /** Displays the entries from LocalStorage onto the Display Section. */
+      this.props.initEntries(LocalStorageEntries.entries);
     };
   };
 
+  /** Triggered when the the form is submited. */
   handleSubmit = (event) => {
+    /** Prevents the page from refreshing due to the default submit functionality. */
     event.preventDefault();
-    let firstName = this.firstNameInput.current.value;
-    let lastName = this.lastNameInput.current.value;
-    let email = this.emailInput.current.value;
-    let password = this.passwordInput.current.value;
 
+    /** Creates a UUID */
     const id = uuid();
+    /** Creates a new Entry. */
     this.props.addEntry({
       id,
-      firstName,
-      lastName,
-      email,
-      password
+      firstName: this.firstNameInput.current.value,
+      lastName: this.lastNameInput.current.value,
+      email: this.emailInput.current.value,
+      password: this.passwordInput.current.value
     });
   };
 
+  /** Triggered when the ShowRequirement link is clicked. */
   handleShowRequirement = (toggleRequirements) => {
+    /** Toggles the password requirements */
     toggleRequirements();
-
-    let { showingRequirements } = this.props;
-    showingRequirements = !showingRequirements;
-    this.setState({ showingRequirements });
   };
 
+  /** Triggered when the password input value changes. */
   passwordOnChange = (updatePassword) => {
+    /** Updates the password on the Store. */
     updatePassword(this.passwordInput.current.value);
   };
 
   render() {
+    /** Deconstructing */
     const {
       FormWrapper,
       Label,
@@ -145,36 +152,40 @@ class Form extends React.Component {
       Field,
       ShowRequirements,
       passwordOnChange,
-      props,
       handleShowRequirement,
       handleSubmit,
       firstNameInput,
       lastNameInput,
       emailInput,
       passwordInput,
-      submitButton
+      submitButton,
+      props: {
+        errorFields,
+        theme,
+        updatePassword,
+        showingRequirements,
+        toggleRequirements
+      }
     } = this;
-
-    const {
-      errorFields,
-      theme,
-      updatePassword,
-      showingRequirements,
-      toggleRequirements
-    } = props;
 
     colorTheme = ColorTheme[theme];
 
+    /** If a new entry successfully got added. */
     if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
+      /** Resets input value. */
       this.firstNameInput.current.value = '';
+      /** Resets input value. */
       this.lastNameInput.current.value = '';
+      /** Resets input value. */
       this.emailInput.current.value = '';
+      /** Resets input value. */
       this.passwordInput.current.value = '';
+      /** Applies focus on the first input. */
       this.firstNameInput.current.focus();
       errorFields.failedForm = undefined;
-      updatePassword('');
     };
 
+    /** Deconstructing */
     const { firstName, lastName, email, password } = errorFields;
 
     return (
