@@ -1,21 +1,21 @@
 {
   "files": {
     "main.css": "/IoTplace-V2/static/css/main.e817da85.chunk.css",
-    "main.js": "/IoTplace-V2/static/js/main.819c571e.chunk.js",
-    "main.js.map": "/IoTplace-V2/static/js/main.819c571e.chunk.js.map",
+    "main.js": "/IoTplace-V2/static/js/main.b21afdd5.chunk.js",
+    "main.js.map": "/IoTplace-V2/static/js/main.b21afdd5.chunk.js.map",
     "runtime-main.js": "/IoTplace-V2/static/js/runtime-main.1c219e4a.js",
     "runtime-main.js.map": "/IoTplace-V2/static/js/runtime-main.1c219e4a.js.map",
-    "static/js/2.c22c1636.chunk.js": "/IoTplace-V2/static/js/2.c22c1636.chunk.js",
-    "static/js/2.c22c1636.chunk.js.map": "/IoTplace-V2/static/js/2.c22c1636.chunk.js.map",
+    "static/js/2.63a28fbe.chunk.js": "/IoTplace-V2/static/js/2.63a28fbe.chunk.js",
+    "static/js/2.63a28fbe.chunk.js.map": "/IoTplace-V2/static/js/2.63a28fbe.chunk.js.map",
     "index.html": "/IoTplace-V2/index.html",
-    "precache-manifest.e0441fbf5a9d175cb0fea229fb6b644e.js": "/IoTplace-V2/precache-manifest.e0441fbf5a9d175cb0fea229fb6b644e.js",
+    "precache-manifest.75b234b422e85aa495b354768903d68a.js": "/IoTplace-V2/precache-manifest.75b234b422e85aa495b354768903d68a.js",
     "service-worker.js": "/IoTplace-V2/service-worker.js",
     "static/css/main.e817da85.chunk.css.map": "/IoTplace-V2/static/css/main.e817da85.chunk.css.map"
   },
   "entrypoints": [
     "static/js/runtime-main.1c219e4a.js",
-    "static/js/2.c22c1636.chunk.js",
+    "static/js/2.63a28fbe.chunk.js",
     "static/css/main.e817da85.chunk.css",
-    "static/js/main.819c571e.chunk.js"
+    "static/js/main.b21afdd5.chunk.js"
   ]
 }
