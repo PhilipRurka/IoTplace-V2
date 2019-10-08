@@ -107,7 +107,7 @@ const Display = ({ theme, entries, removeAllEntries, removeEntry }) => {
               size='sm'
               icon='minus'
               addedStyles={removeEntries}
-              handleClick={() => {onRemoveEntry(removeEntry, id)}}
+              handleClick={() => {onRemoveEntry(removeEntry, i)}}
               theme={theme}
               />
             <Field>

@@ -13,25 +13,23 @@ import {
   passwordNumberTest
 } from '../helpers/conditions';
 
-
 export function formValidation({ dispatch }) {
   return function(next) {
     return function(action) {
       if(action.type === ADD_ENTRY_MIDDLE) {
+        /** Deconstructing */
         const { firstName, lastName, email, password} = action.payload;
+        /** Object that contains all of the fields statuses including the forms status. */
+        let errorRequirements = {};
         
-        let errorRequirements = { failedForm: false };
-        /** Names Names Names Names Names Names */
+        /** Form validation on submit => First Name */
         errorRequirements.firstName = nameLengthTest(firstName);
+        /** Form validation on submit => Last Name */
         errorRequirements.lastName = nameLengthTest(lastName);
-        /** End End End End End End */
-
-        /** Email Email Email Email Email Email */
+        /** Form validation on submit => Email */
         errorRequirements.email = emailTest(email)
           ? false : true;
-        /** End End End End End End */
-
-        /** Password Password Password Password Password Password */
+        /** Form validation on submit => Password */
         errorRequirements.password = (
           passwordLengthTest(password)
           && passwordUpperTest(password)
@@ -39,44 +37,27 @@ export function formValidation({ dispatch }) {
           && passwordSpecialTest(password)
           && passwordNumberTest(password)
         ) ? false : true
-        /** End End End End End End */
-
+        /** Sets the default value before iteration. */
         errorRequirements.failedForm = false;
         Object.keys(errorRequirements).map((key) => {
           if(errorRequirements[key]) { errorRequirements.failedForm = true };
         });
 
+        /** Pre-building the payload. */
+        const payload = {
+          entries: action.payload,
+          errorFields: errorRequirements
+        };
+
+        /** If the form failed in any of the fields. */
         if(errorRequirements.failedForm) {
-          return dispatch({
-            type: FAILED_ENTRY,
-            payload: {
-              entries: action.payload,
-              errorFields: errorRequirements
-            }
-          });
+          return dispatch({ type: FAILED_ENTRY, payload });
+
         } else {
-          return dispatch({
-            type: ADD_ENTRY,
-            payload: {
-              entries: action.payload,
-              errorFields: errorRequirements
-            }
-          });
+          return dispatch({ type: ADD_ENTRY, payload });
         };
       };
       return next(action);
     };
   };
 };
-
-
-
-// errorRequirements.character = (password.length < 8);
-// errorRequirements.upperCase = (/^(?=.*[A-Z]).+$/.test(password))
-//   ? false : true;
-// errorRequirements.lowerCase = (/^(?=.*[a-z]).+$/.test(password))
-//   ? false : true;
-// errorRequirements.special = (/[-#?!@$%^&*-]/.test(password))
-//   ? false : true;
-// errorRequirements.number = (password.match(/\d+/g) && password.match(/\d+/g).length > 0)
-//   ? false : true;
