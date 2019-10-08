@@ -98,17 +98,14 @@ class Form extends React.Component {
     display: 'inline-block'
   }));
   /** End End End End End End End End End */
-
-  componentWillMount() {
+  
+  componentDidMount() {
+    this.firstNameInput.current.focus();
     let LocalStorageEntries = localStorage.getItem('entries');
     LocalStorageEntries = JSON.parse(LocalStorageEntries);
     if(LocalStorageEntries && LocalStorageEntries.entries.length !== 0) {
       this.props.initEntries(LocalStorageEntries.entries)
     };
-  };
-
-  componentDidMount() {
-    this.firstNameInput.current.focus();
   };
 
   handleSubmit = (event) => {
