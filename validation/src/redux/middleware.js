@@ -1,4 +1,17 @@
-import { ADD_ENTRY, FAILED_ENTRY, ADD_ENTRY_MIDDLE } from './constants';
+import {
+  ADD_ENTRY,
+  FAILED_ENTRY,
+  ADD_ENTRY_MIDDLE
+} from './constants';
+import {
+  nameLengthTest,
+  emailTest,
+  passwordLengthTest,
+  passwordUpperTest,
+  passwordLowerTest,
+  passwordSpecialTest,
+  passwordNumberTest
+} from '../helpers/conditions';
 
 const errorRequirements = {
   firstName: true,
@@ -15,22 +28,22 @@ export function formValidation({ dispatch }) {
         const { firstName, lastName, email, password} = action.payload;
 
         /** Names Names Names Names Names Names */
-        errorRequirements.firstName = (firstName.length < 2);
-        errorRequirements.lastName = (lastName.length < 2);
+        errorRequirements.firstName = nameLengthTest(firstName);
+        errorRequirements.lastName = nameLengthTest(lastName);
         /** End End End End End End */
 
         /** Email Email Email Email Email Email */
-        errorRequirements.email = (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email))
+        errorRequirements.email = emailTest(email)
           ? false : true;
         /** End End End End End End */
 
         /** Password Password Password Password Password Password */
         errorRequirements.password = (
-          password.length >= 8
-          && /^(?=.*[A-Z]).+$/.test(password)
-          && /^(?=.*[a-z]).+$/.test(password)
-          && /[-#?!@$%^&*-]/.test(password)
-          && password.match(/\d+/g) && password.match(/\d+/g).length > 0
+          passwordLengthTest(password)
+          && passwordUpperTest(password)
+          && passwordLowerTest(password)
+          && passwordSpecialTest(password)
+          && passwordNumberTest(password)
         ) ? false : true
         /** End End End End End End */
 

@@ -63,6 +63,9 @@ const onClickChangeTheme = (toggleTheme) => {
 const App = ({ theme, toggleTheme }) => {
   colorTheme = ColorTheme[theme];
 
+  let formatedTheme = theme.replace(/([a-z])([A-Z])/g, '$1 $2');
+  formatedTheme = formatedTheme.charAt(0).toUpperCase() + formatedTheme.slice(1);
+
   return (
     <GlobalWrapper>
       <div className="container">
@@ -71,7 +74,7 @@ const App = ({ theme, toggleTheme }) => {
           <p>Do not use any personal Passwords.</p>
         </WarningText>
         <CurrentTheme>
-          <p>You are currently in the {theme} theme.</p>
+          <p>You are currently in the <strong>{formatedTheme}</strong> theme.</p>
           <span>Click&nbsp;
             <p onClick={() => (onClickChangeTheme(toggleTheme))}>here</p>
           </span>

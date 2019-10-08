@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../../themes/colors';
-  let colorTheme;
+import PropTypes from 'prop-types';
 
-const BasicButtonStyled = styled.button(({ theme ,color, size, addedStyles }) => {
+let colorTheme;
+
+const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
   let fontColor, bgColor, hoverColor, padding, fontSize;
 
   // Turn this into a helper.
@@ -51,13 +53,13 @@ const BasicButtonStyled = styled.button(({ theme ,color, size, addedStyles }) =>
 
 
 const BasicButton = ({
+  theme,
   type,
   color,
   size,
   children,
   addedStyles = null,
-  handleClick = null,
-  theme
+  handleClick = null
 }) => {
 
 colorTheme = ColorTheme[theme];
@@ -72,5 +74,16 @@ colorTheme = ColorTheme[theme];
       >{children}</BasicButtonStyled>
   );
 };
+
+BasicButton.propTypes = {
+  theme:          PropTypes.string.isRequired,
+  type:           PropTypes.string.isRequired,
+  color:          PropTypes.string.isRequired,
+  size:           PropTypes.string.isRequired,
+  children:       PropTypes.string.isRequired,
+  addedStyles:    PropTypes.object,
+  onClick:        PropTypes.func,
+};
+
 
 export default BasicButton;

@@ -7,7 +7,6 @@ import { addEntry, initEntries } from '../redux/actions';
 import uuid from 'uuid';
 import BasicButton from './buttons/BasicButton';
 import ColorTheme from '../themes/colors';
-  let colorTheme;
 
 const mapToStateToProps = (state) => ({
   errorFields: state.errorFields,
@@ -21,9 +20,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-const inlinBlock = {
-  display: 'inline-block',
-};
+let colorTheme;
 
 class Form extends React.Component {
   state = {
@@ -51,7 +48,7 @@ class Form extends React.Component {
       margin: '0',
       fontWeight: '600',
       letterSpacing: '0.5px',
-      ...inlinBlock
+      display: 'inline-block'
   }));
   
   Input = styled.input(({ error }) => {
@@ -81,7 +78,7 @@ class Form extends React.Component {
   }));
 
   submitButton = {
-    marginTop: '30px',
+    marginTop: '30px'
   };
 
   ShowRequirements = styled.p(() => ({
@@ -95,7 +92,7 @@ class Form extends React.Component {
     cursor: 'pointer',
     textDecoration: 'underline',
     userSelect: 'none',
-    ...inlinBlock
+    display: 'inline-block'
   }));
   /** End End End End End End End End End */
 
