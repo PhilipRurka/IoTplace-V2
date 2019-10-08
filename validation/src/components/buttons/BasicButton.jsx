@@ -4,8 +4,10 @@ import ColorTheme from '../../themes/colors';
 import PropTypes from 'prop-types';
 import { buttonColor } from '../../helpers/general';
 
+/** Colors of the current theme. */
 let colorTheme;
 
+/** Styled Styled Styled Styled Styled Styled Styled Styled */
 const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
   const buttonColors = buttonColor(color, colorTheme);
   let padding, fontSize;
@@ -31,7 +33,7 @@ const BasicButtonStyled = styled.button(({ color, size, addedStyles }) => {
 
   return {...setStyles, ...addedStyles};
 });
-
+/** End End End End End End End End */
 
 const BasicButton = ({
   theme,

@@ -2,25 +2,13 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../../themes/colors';
 import PropTypes from 'prop-types';
+import { buttonColor } from '../../helpers/general';
 
 let colorTheme;
 
 export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon, theme}) => {
-  let fontColor, bgColor, hoverColor, padding, borderWidth, buttonIcon;
-
-  if(color === 'green') {
-    fontColor = 'white';
-    bgColor = colorTheme.progression;
-    hoverColor = colorTheme.progressionHover;
-  } else if(color === 'orange') {
-    fontColor = 'white';
-    bgColor = colorTheme.warning;
-    hoverColor = colorTheme.warningHover;
-  } else if(color === 'red') {
-    fontColor = 'white';
-    bgColor = colorTheme.error;
-    hoverColor = colorTheme.errorHover;
-  };
+  const buttonColors = buttonColor(color, colorTheme);
+  let padding, borderWidth, buttonIcon;
 
   if(size === 'lg') {
     padding = '10px';
@@ -41,14 +29,8 @@ export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon,
     backgroundRepeat: 'no-repeat',
     padding: padding,
     borderWidth: borderWidth,
-    color: fontColor,
-    borderColor: bgColor,
-    backgroundColor: bgColor,
-    '&:hover': {
-      backgroundColor: hoverColor,
-      borderColor: hoverColor
-    },
-    backgroundImage: buttonIcon
+    backgroundImage: buttonIcon,
+    ...buttonColors
   }
 
   return {...setStyles, ...addedStyles};
@@ -87,7 +69,7 @@ IconButton.propTypes = {
   size:           PropTypes.string.isRequired,
   icon:           PropTypes.string.isRequired,
   addedStyles:    PropTypes.object,
-  onClick:        PropTypes.func
+  handleClick:    PropTypes.func
 };
 
 export default IconButton;
