@@ -18,7 +18,8 @@ export function formValidation({ dispatch }) {
     return function(action) {
       if(action.type === ADD_ENTRY_MIDDLE) {
         /** Deconstructing */
-        const { firstName, lastName, email, password} = action.payload;
+        const { firstName, lastName, email, password } = action.payload;
+
         /** Object that contains all of the fields statuses including the forms status. */
         let errorRequirements = {};
         

@@ -8,7 +8,7 @@ import { buttonColor } from '../../helpers/general';
 let colorTheme;
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
-export const IconButtonStyled = styled.button(({ color, size, addedStyles, icon, theme}) => {
+const IconButtonStyled = styled.button(({ color, size, addedStyles, icon, theme}) => {
   /** Gets and stores the styles involving color. */
   const buttonColors = buttonColor(color, colorTheme);
   let padding, borderWidth, backgroundImage;

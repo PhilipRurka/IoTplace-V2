@@ -11,7 +11,7 @@ import {
   passwordNumberTest
 } from '../helpers/conditions';
 
-const mapToStateToProps = ({ theme, password, showingRequirements }) => ({
+const mapToStateToProps = ({ theme, form: { password }, showingRequirements }) => ({
   theme,
   password,
   showingRequirements

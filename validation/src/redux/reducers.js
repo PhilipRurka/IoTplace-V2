@@ -5,7 +5,7 @@ import {
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
   TOGGLE_THEME,
-  UPDATE_PASSWORD,
+  UPDATE_FORM,
   TOGGLE_REQUIREMENTS
 } from './constants';
 
@@ -14,7 +14,14 @@ const initialState = {
   theme: 'cloud',
   errorFields: {},
   password: '',
-  showingRequirements: false
+  showingRequirements: false,
+  form: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    triggerReset: false
+  }
 };
 
 // Look into moving some of this logic into the middleware.
@@ -30,8 +37,7 @@ function rootReducer(state = initialState, action) {
 
     return Object.assign({}, state, {
       entries,
-      errorFields: { ...state.errorFields, ...payload.errorFields },
-      password: ''
+      errorFields: { ...state.errorFields, ...payload.errorFields }
     });
 
   /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */
@@ -73,9 +79,26 @@ function rootReducer(state = initialState, action) {
 
     return Object.assign({}, state, { theme });
 
-  /** UPDATE_PASSWORD - UPDATE_PASSWORD - UPDATE_PASSWORD - UPDATE_PASSWORD */
-  } else if(type === UPDATE_PASSWORD) {
-    return Object.assign({}, state, { password: payload });
+  /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
+  } else if(type === UPDATE_FORM) {
+    const { name, value } = payload;
+
+    debugger
+
+    let newState = Object.assign({}, state);
+    if(name === 'reset') {
+      newState.form = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        triggerReset: (!newState.form.triggerReset)
+      };
+    } else {
+      newState.form[name] = value;
+    };
+
+    return newState;
 
   /** TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS */
   } else if(type === TOGGLE_REQUIREMENTS) {
