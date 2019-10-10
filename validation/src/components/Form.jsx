@@ -1,44 +1,47 @@
 import React from 'react';
-import PasswordRequirements from './PasswordRequirements';
 import BubbleCard from './BubbleCard';
 import styled from '@emotion/styled/macro';
 import { connect } from 'react-redux';
 import uuid from 'uuid';
 import BasicButton from './buttons/BasicButton';
 import ColorTheme from '../themes/colors';
+import CreatePassword from './CreatePassword';
+import Input from './Input';
 import {
   addEntry,
   initEntries,
-  updatePassword,
-  toggleRequirements
+  updateForm
 } from '../redux/actions';
 
-const mapToStateToProps = ({ errorFields, theme, password, showingRequirements }) => ({
+const mapToStateToProps = ({
   errorFields,
   theme,
-  password,
+  form: {
+    firstName,
+    lastName,
+    email
+  },
+  showingRequirements
+}) => ({
+  errorFields,
+  theme,
+  firstName,
+  lastName,
+  email,
   showingRequirements
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addEntry: (entry) => dispatch(addEntry(entry)),
-    initEntries: (entries) => dispatch(initEntries(entries)),
-    updatePassword: (password) => dispatch(updatePassword(password)),
-    toggleRequirements: (boolean) => dispatch(toggleRequirements(boolean))
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  updateForm: (payload) => dispatch(updateForm(payload)),
+  addEntry: (entry) => dispatch(addEntry(entry)),
+  initEntries: (entries) => dispatch(initEntries(entries))
+});
 
 /** Colors of the current theme. */
 let colorTheme;
 
 class Form extends React.Component {
-  /** Ref Ref Ref Ref Ref Ref Ref */
-  firstNameInput = React.createRef();
-  lastNameInput = React.createRef();
-  emailInput = React.createRef();
-  passwordInput = React.createRef();
-  /** End End End End End End End */
+  letFocus = false;
 
   /** Styled Styled Styled Styled Styled Styled Styled Styled */
   FormWrapper = styled.form({
@@ -47,63 +50,28 @@ class Form extends React.Component {
     justifyContent: 'space-between',
   });
   
-  Label = styled.label(() => ({
+  Field = styled.div(({ TopChild, Half }) => ({
+    display: 'inline-block',
+    verticalAlign: 'top',
+    marginTop: (TopChild) ? '0' : '20px',
+    flexBasis: (Half) ? 'calc(50% - 10px)' : '100%',
+
+    'label': {
       color: colorTheme.primaryCopy,
       margin: '0',
       fontWeight: '600',
       letterSpacing: '0.5px',
       display: 'inline-block'
-  }));
-  
-  Input = styled.input(({ error }) => {
-    /** If the field failed during the form validation process. */
-    const errorStyles = (error) ? {
-      borderColor: colorTheme.error,
-      '&:focus': { outlineColor: colorTheme.error }
-    } : null;
-
-    return {
-      color: colorTheme.primaryCopy,
-      display: 'block',
-      backgroundColor: colorTheme.thirdaryBackground,
-      border: `1px solid ${colorTheme.primaryBorder}`,
-      borderRadius: '5px',
-      padding: '10px',
-      width: '100%',
-      ...errorStyles
     }
-  });
-  
-  Field = styled.div(({ TopChild, Half }) => ({
-    display: 'inline-block',
-    verticalAlign: 'top',
-    marginTop: (TopChild) ? '0' : '20px',
-    flexBasis: (Half) ? 'calc(50% - 10px)' : '100%'
   }));
 
   /** This is used in the submit button's Props. */
   submitButton = {
     marginTop: '30px'
   };
-
-  ShowRequirements = styled.p(() => ({
-    color: colorTheme.primaryCopy,
-    margin: '0',
-    float: 'right',
-    fontSize: '12px',
-    fontWeight: '600',
-    letterSpacing: '0.5px',
-    marginTop: '6px',
-    cursor: 'pointer',
-    textDecoration: 'underline',
-    userSelect: 'none',
-    display: 'inline-block'
-  }));
   /** End End End End End End End End End */
   
   componentDidMount() {
-    /** Applies focus on the first input. */
-    this.firstNameInput.current.focus();
     /** Gets and stores Entries from LocalStorage. */
     let LocalStorageEntries = localStorage.getItem('entries');
     LocalStorageEntries = JSON.parse(LocalStorageEntries);
@@ -119,114 +87,95 @@ class Form extends React.Component {
     /** Prevents the page from refreshing due to the default submit functionality. */
     event.preventDefault();
 
+    const { props: { form, addEntry, updateForm } } = this;
     /** Creates a UUID */
     const id = uuid();
     /** Creates a new Entry. */
-    this.props.addEntry({
+    addEntry({
       id,
-      firstName: this.firstNameInput.current.value,
-      lastName: this.lastNameInput.current.value,
-      email: this.emailInput.current.value,
-      password: this.passwordInput.current.value
+      ...form
     });
+
+    // FRONTEND: This doesn't work. This does not handle the if it fails case.
+    updateForm({ name: 'reset' });
+
+    this.letFocus = true;
   };
 
-  /** Triggered when the ShowRequirement link is clicked. */
-  handleShowRequirement = (toggleRequirements) => {
-    /** Toggles the password requirements */
-    toggleRequirements();
-  };
-
-  /** Triggered when the password input value changes. */
-  passwordOnChange = (updatePassword) => {
-    /** Updates the password on the Store. */
-    updatePassword(this.passwordInput.current.value);
+  updateInput = (name, value) => {
+    let { updateForm } = this.props;
+    updateForm({ name, value });
   };
 
   render() {
     /** Deconstructing */
     const {
       FormWrapper,
-      Label,
-      Input,
       Field,
-      ShowRequirements,
-      passwordOnChange,
-      handleShowRequirement,
       handleSubmit,
-      firstNameInput,
-      lastNameInput,
-      emailInput,
-      passwordInput,
       submitButton,
+      updateInput,
+      forceFocus,
       props: {
         errorFields,
         theme,
-        updatePassword,
-        showingRequirements,
-        toggleRequirements
+        firstName,
+        lastName,
+        email
       }
     } = this;
 
     colorTheme = ColorTheme[theme];
 
-    /** If a new entry successfully got added. */
-    if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
-      /** Resets input value. */
-      this.firstNameInput.current.value = '';
-      /** Resets input value. */
-      this.lastNameInput.current.value = '';
-      /** Resets input value. */
-      this.emailInput.current.value = '';
-      /** Resets input value. */
-      this.passwordInput.current.value = '';
-      /** Applies focus on the first input. */
-      this.firstNameInput.current.focus();
-      errorFields.failedForm = undefined;
-    };
-
-    /** Deconstructing */
-    const { firstName, lastName, email, password } = errorFields;
+    // /** If a new entry successfully got added. */
+    // if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
+    //   /** Resets input value. */
+    //   this.firstNameInput.current.value = '';
+    //   /** Resets input value. */
+    //   this.lastNameInput.current.value = '';
+    //   /** Resets input value. */
+    //   this.emailInput.current.value = '';
+    //   // /** Resets input value. */
+    //   // this.passwordInput.current.value = '';
+    //   errorFields.failedForm = undefined;
+    // };
 
     return (
       <BubbleCard label='Form Section' theme={theme}>
-        <FormWrapper onSubmit={handleSubmit}>
+        <FormWrapper onSubmit={(event) => (handleSubmit(event))}>
           <Field TopChild Half>
-            <Label>First Name</Label>
+            <label>First Name</label>
             <Input
               type='text'
-              ref={firstNameInput}
-              error={firstName}
+              giveFocus={forceFocus}
+              name='firstName'
+              error={errorFields.firstName}
+              updateInput={updateInput}
+              value={firstName}
             />
           </Field>
           <Field TopChild Half>
-            <Label>Last Name</Label>
+            <label>Last Name</label>
             <Input
               type='text'
-              ref={lastNameInput}
-              error={lastName}
+              name='lastName'
+              error={errorFields.lastName}
+              updateInput={updateInput}
+              value={lastName}
             />
           </Field>
           <Field>
-            <Label>Email Adress</Label>
+            <label>Email Adress</label>
             <Input
               type='email'
-              ref={emailInput}
-              error={email}
+              name='email'
+              error={errorFields.email}
+              updateInput={updateInput}
+              value={email}
             />
           </Field>
           <Field>
-            <Label>Password</Label>
-            <ShowRequirements onClick={() => (handleShowRequirement(toggleRequirements))}>
-              {(showingRequirements) ? 'Hide Requirements' : 'Show Requirements'}
-            </ShowRequirements>
-            <PasswordRequirements />
-            <Input
-              type='password'
-              ref={passwordInput}
-              error={password}
-              onChange={() => (passwordOnChange(updatePassword))}
-            />
+            <CreatePassword />
           </Field>
           <BasicButton
             type='submit'
