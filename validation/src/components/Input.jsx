@@ -18,6 +18,7 @@ class Input extends React.Component {
   /** Styled Styled Styled Styled Styled Styled Styled Styled */
   InputStyled = styled.input(({ error, addedStyles = null }) => {
 
+    /** If the this input failed to meet the requirements. */
     const errorStyles = (error) ? {
       borderColor: colorTheme.error,
       '&:focus': { outlineColor: colorTheme.error }
@@ -38,7 +39,9 @@ class Input extends React.Component {
   /** End End End End End End End End */
 
   componentDidMount() {
+    /** Deconstructing */
     const { refInput, props: { giveFocus } } = this;
+    /** If this input has  */
     if(giveFocus) { refInput.current.focus(); };
   };
 
@@ -64,10 +67,6 @@ class Input extends React.Component {
     } = this;
 
     colorTheme = ColorTheme[theme];
-
-    if(refInput.current && giveFocus) {
-      refInput.current.focus(); 
-    };
 
     // This will have to change. Ths is Temporary. Place this as an attribute
     if(refInput.current && refInput.current.value) {

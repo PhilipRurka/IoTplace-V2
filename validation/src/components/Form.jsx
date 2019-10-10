@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 let colorTheme;
 
 class Form extends React.Component {
-  letFocus = false;
+  letFocus = true
 
   /** Styled Styled Styled Styled Styled Styled Styled Styled */
   FormWrapper = styled.form({
@@ -108,6 +108,7 @@ class Form extends React.Component {
   updateInput = (name, value) => {
     let { updateForm } = this.props;
     updateForm({ name, value });
+    this.giveFocus = false;
   };
 
   render() {
@@ -118,7 +119,7 @@ class Form extends React.Component {
       handleSubmit,
       submitButton,
       updateInput,
-      forceFocus,
+      letFocus,
       props: {
         errorFields,
         theme,
@@ -150,8 +151,8 @@ class Form extends React.Component {
             <label>First Name</label>
             <Input
               type='text'
-              giveFocus={forceFocus}
               name='firstName'
+              giveFocus={letFocus}
               error={errorFields.firstName}
               updateInput={updateInput}
               value={firstName}

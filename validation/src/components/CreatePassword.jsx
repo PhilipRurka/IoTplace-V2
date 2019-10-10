@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
-import {
-  updateForm,
-  toggleRequirements
-} from '../redux/actions';
+import { updateForm, toggleRequirements } from '../redux/actions';
 import ColorTheme from '../themes/colors';
 import PasswordRequirements from './PasswordRequirements';
 import Input from './Input';
 
-// This will handle the onchange password input from the form
 const mapToStateToProps = ({
   errorFields,
   theme,
@@ -30,21 +26,21 @@ const mapDispatchToProps = (dispatch) => ({
 let colorTheme;
 
 class CreatePassword extends React.Component {
-/** Styled Styled Styled Styled Styled Styled Styled Styled */
-ShowRequirements = styled.p(() => ({
-  color: colorTheme.primaryCopy,
-  margin: '0',
-  float: 'right',
-  fontSize: '12px',
-  fontWeight: '600',
-  letterSpacing: '0.5px',
-  marginTop: '6px',
-  cursor: 'pointer',
-  textDecoration: 'underline',
-  userSelect: 'none',
-  display: 'inline-block'
-}));
-/** End End End End End End End End End */
+  /** Styled Styled Styled Styled Styled Styled Styled Styled */
+  ShowRequirements = styled.p(() => ({
+    color: colorTheme.primaryCopy,
+    margin: '0',
+    float: 'right',
+    fontSize: '12px',
+    fontWeight: '600',
+    letterSpacing: '0.5px',
+    marginTop: '6px',
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    userSelect: 'none',
+    display: 'inline-block'
+  }));
+  /** End End End End End End End End End */
 
   /** Triggered when the ShowRequirement link is clicked. */
   handleShowRequirement = (toggleRequirements) => {
@@ -59,12 +55,13 @@ ShowRequirements = styled.p(() => ({
   };
 
   updateInput = (name, value) => {
-    /** Updates the password on the Store. */
     const { updateForm } = this.props;
+    /** Updates the password on the Store. */
     updateForm({ name, value });
   };
 
   render() {
+    /** Deconstructing */
     const {
       ShowRequirements,
       handleShowRequirement,
@@ -77,29 +74,28 @@ ShowRequirements = styled.p(() => ({
         password
       }
     } = this;
-
+    
     colorTheme = ColorTheme[theme];
 
     return (
       <div>
         <label>Password</label>
         <ShowRequirements
-          onClick={() => (handleShowRequirement(toggleRequirements))}>
+          onClick={() => (handleShowRequirement(toggleRequirements))}
+        >
           {(showingRequirements) ? 'Hide Requirements' : 'Show Requirements'}
         </ShowRequirements>
         <PasswordRequirements
           theme={theme}
-          theme={theme}
           password={password}
-          showingRequirements={showingRequirements}/>
+          showingRequirements={showingRequirements} />
         <Input
           type='password'
           name='password'
           error={errorFields.password}
           updateInput={updateInput}
           value={password}
-          theme={theme}
-        />
+          theme={theme} />
       </div>
     );
   };

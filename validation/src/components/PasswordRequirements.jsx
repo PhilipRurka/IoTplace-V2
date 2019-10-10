@@ -14,10 +14,8 @@ import {
 let colorTheme;
 
 /** Styled Styled Styled Styled Styled Styled Styled Styled */
-
 /** Deconstructing */
 const { lgBreak, mdBreak } = breaks;
-
 /** Set height depending on break point */
 const smallHeight = '179px';
 /** Set height depending on break point */
@@ -122,9 +120,7 @@ const Span = styled.span({
 });
 /** End End End End End End End End End */
 
-/** Param => state: - (Object) - The state of the Form Component. */
 const PasswordRequirements = ({ showingRequirements, password, theme }) => {
-  colorTheme = ColorTheme[theme];
   /** Object containing the list of requirements and whether they have succeeded or not. */
   let successRequirements = {
     minCharacter: passwordLengthTest(password),
@@ -142,6 +138,8 @@ const PasswordRequirements = ({ showingRequirements, password, theme }) => {
     special,
     number
   } = successRequirements;
+
+  colorTheme = ColorTheme[theme];
 
   return (
     <Wrapper showingRequirements={showingRequirements}>
