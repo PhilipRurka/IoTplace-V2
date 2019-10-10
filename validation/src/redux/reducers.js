@@ -14,7 +14,13 @@ const initialState = {
   theme: 'cloud',
   errorFields: {},
   password: '',
-  showingRequirements: false
+  showingRequirements: false,
+  form: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  }
 };
 
 // Look into moving some of this logic into the middleware.
@@ -28,10 +34,18 @@ function rootReducer(state = initialState, action) {
     /** Setting the entries to LocalStorage */
     localStorage.setItem('entries', JSON.stringify({ entries }));
 
+    const form = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    };
+
     return Object.assign({}, state, {
       entries,
       errorFields: { ...state.errorFields, ...payload.errorFields },
-      password: ''
+      password: '',
+      form
     });
 
   /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */
@@ -78,18 +92,7 @@ function rootReducer(state = initialState, action) {
   const { name, value } = payload;
 
   let newState = Object.assign({}, state);
-  if(name === 'reset') {
-    newState.form = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      // FRONTEND: This shouldn't be here
-      triggerReset: (!newState.form.triggerReset)
-    };
-  } else {
-    newState.form[name] = value;
-  };
+  newState.form[name] = value;
 
   return newState;
 

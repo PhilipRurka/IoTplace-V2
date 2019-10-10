@@ -83,16 +83,22 @@ ShowRequirements = styled.p(() => ({
     return (
       <div>
         <label>Password</label>
-        <ShowRequirements onClick={() => (handleShowRequirement(toggleRequirements))}>
+        <ShowRequirements
+          onClick={() => (handleShowRequirement(toggleRequirements))}>
           {(showingRequirements) ? 'Hide Requirements' : 'Show Requirements'}
         </ShowRequirements>
-        <PasswordRequirements />
+        <PasswordRequirements
+          theme={theme}
+          theme={theme}
+          password={password}
+          showingRequirements={showingRequirements}/>
         <Input
           type='password'
           name='password'
           error={errorFields.password}
           updateInput={updateInput}
           value={password}
+          theme={theme}
         />
       </div>
     );

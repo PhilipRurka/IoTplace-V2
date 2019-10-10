@@ -16,6 +16,7 @@ import {
 const mapToStateToProps = ({
   errorFields,
   theme,
+  form,
   form: {
     firstName,
     lastName,
@@ -25,6 +26,7 @@ const mapToStateToProps = ({
 }) => ({
   errorFields,
   theme,
+  form,
   firstName,
   lastName,
   email,
@@ -90,6 +92,7 @@ class Form extends React.Component {
     const { props: { form, addEntry, updateForm } } = this;
     /** Creates a UUID */
     const id = uuid();
+
     /** Creates a new Entry. */
     addEntry({
       id,
@@ -152,6 +155,7 @@ class Form extends React.Component {
               error={errorFields.firstName}
               updateInput={updateInput}
               value={firstName}
+              theme={theme}
             />
           </Field>
           <Field TopChild Half>
@@ -162,6 +166,7 @@ class Form extends React.Component {
               error={errorFields.lastName}
               updateInput={updateInput}
               value={lastName}
+              theme={theme}
             />
           </Field>
           <Field>
@@ -172,6 +177,7 @@ class Form extends React.Component {
               error={errorFields.email}
               updateInput={updateInput}
               value={email}
+              theme={theme}
             />
           </Field>
           <Field>

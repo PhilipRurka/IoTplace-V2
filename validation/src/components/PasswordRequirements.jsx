@@ -2,7 +2,6 @@ import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../themes/colors';
 import { breaks } from '../helpers/breakpoints';
-import { connect } from 'react-redux';
 import {
   passwordLengthTest,
   passwordUpperTest,
@@ -10,12 +9,6 @@ import {
   passwordSpecialTest,
   passwordNumberTest
 } from '../helpers/conditions';
-
-const mapToStateToProps = ({ theme, password, showingRequirements }) => ({
-  theme,
-  password,
-  showingRequirements
-});
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -178,6 +171,4 @@ const PasswordRequirements = ({ showingRequirements, password, theme }) => {
   );
 };
 
-const connectedPasswordRequirements = connect(mapToStateToProps) (PasswordRequirements);
-
-export default connectedPasswordRequirements;
+export default PasswordRequirements;
