@@ -5,7 +5,7 @@ import {
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
   TOGGLE_THEME,
-  UPDATE_PASSWORD,
+  UPDATE_FORM,
   TOGGLE_REQUIREMENTS
 } from './constants';
 
@@ -73,19 +73,35 @@ function rootReducer(state = initialState, action) {
 
     return Object.assign({}, state, { theme });
 
-  /** UPDATE_PASSWORD - UPDATE_PASSWORD - UPDATE_PASSWORD - UPDATE_PASSWORD */
-  } else if(type === UPDATE_PASSWORD) {
-    return Object.assign({}, state, { password: payload });
+  /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
+} else if(type === UPDATE_FORM) {
+  const { name, value } = payload;
 
-  /** TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS */
-  } else if(type === TOGGLE_REQUIREMENTS) {
-    /** Toggling in between two options. */
-    const showingRequirements = (state.showingRequirements) ? false : true;
-
-    return Object.assign({}, state, { showingRequirements })
+  let newState = Object.assign({}, state);
+  if(name === 'reset') {
+    newState.form = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      // FRONTEND: This shouldn't be here
+      triggerReset: (!newState.form.triggerReset)
+    };
+  } else {
+    newState.form[name] = value;
   };
 
-  return state;
+  return newState;
+
+/** TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS */
+} else if(type === TOGGLE_REQUIREMENTS) {
+  /** Toggling in between two options. */
+  const showingRequirements = (state.showingRequirements) ? false : true;
+
+  return Object.assign({}, state, { showingRequirements })
+};
+
+return state;
 };
 
 export default rootReducer;

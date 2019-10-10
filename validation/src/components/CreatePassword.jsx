@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
-import { updateForm, toggleRequirements } from '../redux/actions';
+import {
+  updateForm,
+  toggleRequirements
+} from '../redux/actions';
 import ColorTheme from '../themes/colors';
 import PasswordRequirements from './PasswordRequirements';
 import Input from './Input';
@@ -20,7 +23,6 @@ const mapToStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updatePassword: (password) => dispatch(updatePassword(password)),
   updateForm: (payload) => dispatch(updateForm(payload)),
   toggleRequirements: () => dispatch(toggleRequirements())
 });

@@ -4,7 +4,7 @@ import {
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
   TOGGLE_THEME,
-  UPDATE_PASSWORD,
+  UPDATE_FORM,
   TOGGLE_REQUIREMENTS
 } from './constants';
 
@@ -28,8 +28,8 @@ export function toggleTheme() {
   return { type: TOGGLE_THEME };
 };
 
-export function updatePassword(payload) {
-  return { type: UPDATE_PASSWORD, payload };
+export function updateForm(payload) {
+  return { type: UPDATE_FORM, payload };
 };
 
 export function toggleRequirements() {
