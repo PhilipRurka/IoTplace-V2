@@ -1,16 +1,12 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../themes/colors';
-import { is } from '@babel/types';
+// import { is } from '@babel/types';
 
 /** Colors of the current theme. */
 let colorTheme;
 
 class Input extends React.Component {
-  constructor() {
-    super();
-    this.updateInputValue = this.updateInputValue.bind(this);
-  };
 
   /** Ref Ref Ref Ref Ref Ref Ref */
   refInput = React.createRef();
@@ -39,7 +35,7 @@ class Input extends React.Component {
   });
   /** End End End End End End End End */
 
-  componentDidMount(props) {
+  componentDidMount() {
     /** Deconstructing */
     const {
       refInput,
@@ -53,7 +49,7 @@ class Input extends React.Component {
     (giveFocus) && giveFocus(refInput.current);
   };
 
-  updateInputValue(name) {
+  updateInputValue = (name) => {
     /** Deconstructing */
     const { refInput, props: { updateInput } } = this;
     /** Updates the form's field in the store. */

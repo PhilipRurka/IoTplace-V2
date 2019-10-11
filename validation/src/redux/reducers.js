@@ -1,6 +1,5 @@
 import {
   ADD_ENTRY,
-  FAILED_ENTRY,
   INIT_ENTRIES,
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
@@ -25,34 +24,39 @@ const initialState = {
 
 // Look into moving some of this logic into the middleware.
 function rootReducer(state = initialState, action) {
-  const { type, payload } = action;
+  const { type, payload, status } = action;
 
   /** ADD_ENTRY - ADD_ENTRY - ADD_ENTRY - ADD_ENTRY - ADD_ENTRY */
   if(type === ADD_ENTRY) {
-    /** Adding the new list to the old one. */
-    const entries = state.entries.concat(payload.entries);
-    /** Setting the entries to LocalStorage */
-    localStorage.setItem('entries', JSON.stringify({ entries }));
+    let changes;
+    
+    if(status === 'success') {
+      /** Adding the new list to the old one. */
+      const entries = state.entries.concat(payload.entries);
+      /** Setting the entries to LocalStorage */
+      localStorage.setItem('entries', JSON.stringify({ entries }));
 
-    const form = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
+      const form = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+      };
+
+      changes = {
+        entries,
+        errorFields: { ...state.errorFields, ...payload.errorFields },
+        password: '',
+        form
+      };
+
+    } else {
+      changes = {
+        errorFields: { ...payload.errorFields }
+      };
     };
 
-    return Object.assign({}, state, {
-      entries,
-      errorFields: { ...state.errorFields, ...payload.errorFields },
-      password: '',
-      form
-    });
-
-  /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */
-  } else if(type === FAILED_ENTRY) {
-    return Object.assign({}, state, {
-      errorFields: { ...payload.errorFields }
-    });
+    return Object.assign({}, state, { ...changes });
 
   /** INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES */
   } else if(type === INIT_ENTRIES) {

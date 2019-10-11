@@ -1,5 +1,5 @@
 import {
-  ADD_ENTRY_MIDDLE,
+  ADD_ENTRY,
   INIT_ENTRIES,
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
@@ -9,7 +9,7 @@ import {
 } from './constants';
 
 export function addEntry(payload) {
-  return { type: ADD_ENTRY_MIDDLE, payload };
+  return { type: ADD_ENTRY, payload };
 };
 
 export function initEntries(payload) {

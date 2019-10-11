@@ -1,8 +1,4 @@
-import {
-  ADD_ENTRY,
-  FAILED_ENTRY,
-  ADD_ENTRY_MIDDLE
-} from './constants';
+import { ADD_ENTRY } from './constants';
 import {
   nameLengthTest,
   emailTest,
@@ -16,9 +12,18 @@ import {
 export function formValidation({ dispatch }) {
   return function(next) {
     return function(action) {
-      if(action.type === ADD_ENTRY_MIDDLE) {
+      if(action.type === ADD_ENTRY) {
         /** Deconstructing */
-        const { firstName, lastName, email, password} = action.payload;
+        const {
+          type,
+          payload: {
+            firstName,
+            lastName,
+            email,
+            password
+          }
+        } = action;
+
         /** Object that contains all of the fields statuses including the forms status. */
         let errorRequirements = {};
         
@@ -50,12 +55,9 @@ export function formValidation({ dispatch }) {
         };
 
         /** If the form failed in any of the fields. */
-        if(errorRequirements.failedForm) {
-          return dispatch({ type: FAILED_ENTRY, payload, status:'error' });
+        const status = (errorRequirements.failedForm) ? 'error': 'success';
 
-        } else {
-          return dispatch({ type: ADD_ENTRY, payload, status:'success' });
-        };
+        action = { type, payload, status };
       };
       return next(action);
     };

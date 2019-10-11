@@ -1,43 +1,11 @@
 import React from 'react';
-import BubbleCard from './BubbleCard';
+import BubbleCard from '../BubbleCard';
 import styled from '@emotion/styled/macro';
-import { connect } from 'react-redux';
 import uuid from 'uuid';
-import BasicButton from './buttons/BasicButton';
-import ColorTheme from '../themes/colors';
-import CreatePassword from './CreatePassword';
-import Input from './Input';
-import {
-  addEntry,
-  initEntries,
-  updateForm
-} from '../redux/actions';
-
-const mapToStateToProps = ({
-  errorFields,
-  theme,
-  form,
-  form: {
-    firstName,
-    lastName,
-    email
-  },
-  showingRequirements
-}) => ({
-  errorFields,
-  theme,
-  form,
-  firstName,
-  lastName,
-  email,
-  showingRequirements
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateForm: (payload) => dispatch(updateForm(payload)),
-  addEntry: (entry) => dispatch(addEntry(entry)),
-  initEntries: (entries) => dispatch(initEntries(entries))
-});
+import BasicButton from '../buttons/BasicButton';
+import ColorTheme from '../../themes/colors';
+import CreatePassword from '../CreatePassword';
+import Input from '../Input';
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -192,6 +160,4 @@ class Form extends React.Component {
   };
 };
 
-const connectedForm = connect(mapToStateToProps, mapDispatchToProps) (Form);
-
-export default connectedForm;
+export default Form;
