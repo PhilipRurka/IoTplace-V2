@@ -12,13 +12,13 @@ const initialState = {
   entries: [],
   theme: 'cloud',
   errorFields: {},
-  password: '',
   showingRequirements: false,
   form: {
     firstName: '',
     lastName: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   }
 };
 
@@ -41,12 +41,12 @@ function rootReducer(state = initialState, action) {
         lastName: '',
         email: '',
         password: '',
+        confirmPassword: ''
       };
 
       changes = {
         entries,
         errorFields: { ...state.errorFields, ...payload.errorFields },
-        password: '',
         form
       };
 
