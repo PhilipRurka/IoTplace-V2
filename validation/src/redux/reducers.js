@@ -1,11 +1,10 @@
 import {
   ADD_ENTRY,
-  FAILED_ENTRY,
   INIT_ENTRIES,
   REMOVE_ENTRY,
   REMOVE_ALL_ENTRIES,
   TOGGLE_THEME,
-  UPDATE_PASSWORD,
+  UPDATE_FORM,
   TOGGLE_REQUIREMENTS
 } from './constants';
 
@@ -14,31 +13,50 @@ const initialState = {
   theme: 'cloud',
   errorFields: {},
   password: '',
-  showingRequirements: false
+  showingRequirements: false,
+  form: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
+  }
 };
 
 // Look into moving some of this logic into the middleware.
 function rootReducer(state = initialState, action) {
-  const { type, payload } = action;
+  const { type, payload, status } = action;
 
   /** ADD_ENTRY - ADD_ENTRY - ADD_ENTRY - ADD_ENTRY - ADD_ENTRY */
   if(type === ADD_ENTRY) {
-    /** Adding the new list to the old one. */
-    const entries = state.entries.concat(payload.entries);
-    /** Setting the entries to LocalStorage */
-    localStorage.setItem('entries', JSON.stringify({ entries }));
+    let changes;
+    
+    if(status === 'success') {
+      /** Adding the new list to the old one. */
+      const entries = state.entries.concat(payload.entries);
+      /** Setting the entries to LocalStorage */
+      localStorage.setItem('entries', JSON.stringify({ entries }));
 
-    return Object.assign({}, state, {
-      entries,
-      errorFields: { ...state.errorFields, ...payload.errorFields },
-      password: ''
-    });
+      const form = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+      };
 
-  /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */
-  } else if(type === FAILED_ENTRY) {
-    return Object.assign({}, state, {
-      errorFields: { ...payload.errorFields }
-    });
+      changes = {
+        entries,
+        errorFields: { ...state.errorFields, ...payload.errorFields },
+        password: '',
+        form
+      };
+
+    } else {
+      changes = {
+        errorFields: { ...payload.errorFields }
+      };
+    };
+
+    return Object.assign({}, state, { ...changes });
 
   /** INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES */
   } else if(type === INIT_ENTRIES) {
@@ -73,19 +91,24 @@ function rootReducer(state = initialState, action) {
 
     return Object.assign({}, state, { theme });
 
-  /** UPDATE_PASSWORD - UPDATE_PASSWORD - UPDATE_PASSWORD - UPDATE_PASSWORD */
-  } else if(type === UPDATE_PASSWORD) {
-    return Object.assign({}, state, { password: payload });
+  /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
+} else if(type === UPDATE_FORM) {
+  const { name, value } = payload;
 
-  /** TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS */
-  } else if(type === TOGGLE_REQUIREMENTS) {
-    /** Toggling in between two options. */
-    const showingRequirements = (state.showingRequirements) ? false : true;
+  let newState = Object.assign({}, state);
+  newState.form[name] = value;
 
-    return Object.assign({}, state, { showingRequirements })
-  };
+  return newState;
 
-  return state;
+/** TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS */
+} else if(type === TOGGLE_REQUIREMENTS) {
+  /** Toggling in between two options. */
+  const showingRequirements = (state.showingRequirements) ? false : true;
+
+  return Object.assign({}, state, { showingRequirements })
+};
+
+return state;
 };
 
 export default rootReducer;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
-import ColorTheme from '../themes/colors';
+import ColorTheme from '../../themes/colors';
 
 /** Colors of the current theme. */
 let colorTheme;

@@ -1,13 +1,8 @@
 import React from 'react';
-import Form from './Form';
-import Display from './Display';
+import Form from '../Form';
+import Display from '../Display';
 import styled from '@emotion/styled/macro';
-import { connect } from 'react-redux';
-import ColorTheme from '../themes/colors';
-import { toggleTheme } from '../redux/actions';
-
-const mapToStateToProps = (state) => ({ theme: state.theme });
-const mapDispatchToProps = (dispatch) => ({ toggleTheme: () => dispatch(toggleTheme())});
+import ColorTheme from '../../themes/colors';
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -96,6 +91,4 @@ const App = ({ theme, toggleTheme }) => {
   );
 };
 
-const connectedForm = connect(mapToStateToProps, mapDispatchToProps) (App);
-
-export default connectedForm;
+export default App;
