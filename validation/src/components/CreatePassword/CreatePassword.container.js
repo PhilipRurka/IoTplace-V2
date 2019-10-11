@@ -8,12 +8,16 @@ import {
 const mapToStateToProps = ({
   errorFields,
   theme,
-  form: { password },
+  form: {
+    password,
+    confirmPassword
+  },
   showingRequirements
 }) => ({
   errorFields,
   theme,
   password,
+  confirmPassword,
   showingRequirements
 });
 

@@ -6,10 +6,11 @@ import {
   passwordUpperTest,
   passwordLowerTest,
   passwordSpecialTest,
-  passwordNumberTest
+  passwordNumberTest,
+  confirmPasswordTest
 } from '../helpers/conditions';
 
-export function formValidation({ dispatch }) {
+export function formValidation() {
   return function(next) {
     return function(action) {
       if(action.type === ADD_ENTRY) {
@@ -20,7 +21,8 @@ export function formValidation({ dispatch }) {
             firstName,
             lastName,
             email,
-            password
+            password,
+            confirmPassword
           }
         } = action;
 
@@ -42,6 +44,9 @@ export function formValidation({ dispatch }) {
           && passwordSpecialTest(password)
           && passwordNumberTest(password)
         ) ? false : true
+
+        errorRequirements.confirmPassword = confirmPasswordTest(password, confirmPassword)
+          ? false : true;
         /** Sets the default value before iteration. */
         errorRequirements.failedForm = false;
         Object.keys(errorRequirements).map((key) => {

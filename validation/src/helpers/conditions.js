@@ -37,3 +37,9 @@ export const passwordNumberTest = (password) => {
   const test = password.match(/\d+/g) && password.match(/\d+/g).length > 0
   return (test) ? true : false;
 };
+
+/** Test the Confirmed Password input. */
+export const confirmPasswordTest = (password, confirm) => {
+  return (password === confirm) ? true : false;
+};
+

@@ -6,6 +6,7 @@ import BasicButton from '../buttons/BasicButton';
 import ColorTheme from '../../themes/colors';
 import CreatePassword from '../CreatePassword';
 import Input from '../Input/Input';
+import Field from '../Field/Field';
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -19,21 +20,6 @@ class Form extends React.Component {
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   });
-  
-  Field = styled.div(({ TopChild, Half }) => ({
-    display: 'inline-block',
-    verticalAlign: 'top',
-    marginTop: (TopChild) ? '0' : '20px',
-    flexBasis: (Half) ? 'calc(50% - 10px)' : '100%',
-
-    'label': {
-      color: colorTheme.primaryCopy,
-      margin: '0',
-      fontWeight: '600',
-      letterSpacing: '0.5px',
-      display: 'inline-block'
-    }
-  }));
 
   /** This is used in the submit button's Props. */
   submitButton = {
@@ -90,7 +76,6 @@ class Form extends React.Component {
     /** Deconstructing */
     const {
       FormWrapper,
-      Field,
       handleSubmit,
       submitButton,
       updateInput,
@@ -109,8 +94,12 @@ class Form extends React.Component {
     return (
       <BubbleCard label='Form Section' theme={theme}>
         <FormWrapper onSubmit={(event) => (handleSubmit(event))}>
-          <Field TopChild Half>
-            <label>First Name</label>
+          <Field
+            TopChild
+            Half
+            label='First Name'
+            theme={theme}
+          >
             <Input
               type='text'
               name='firstName'
@@ -121,8 +110,12 @@ class Form extends React.Component {
               giveFocus={giveInputFocus}
             />
           </Field>
-          <Field TopChild Half>
-            <label>Last Name</label>
+          <Field
+            TopChild
+            Half
+            label='Last Name'
+            theme={theme}
+          >
             <Input
               type='text'
               name='lastName'
@@ -132,8 +125,10 @@ class Form extends React.Component {
               theme={theme}
             />
           </Field>
-          <Field>
-            <label>Email Adress</label>
+          <Field
+            label='Email Adress'
+            theme={theme}
+          >
             <Input
               type='email'
               name='email'
@@ -143,9 +138,7 @@ class Form extends React.Component {
               theme={theme}
             />
           </Field>
-          <Field>
-            <CreatePassword />
-          </Field>
+          <CreatePassword />
           <BasicButton
             type='submit'
             color='green'
@@ -161,3 +154,8 @@ class Form extends React.Component {
 };
 
 export default Form;
+
+
+/**
+ * Create a Fields Component.
+ */
