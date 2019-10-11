@@ -94,21 +94,28 @@ class Form extends React.Component {
     const id = uuid();
 
     /** Creates a new Entry. */
-    addEntry({
+    const res = addEntry({
       id,
       ...form
     });
 
-    // FRONTEND: This doesn't work. This does not handle the if it fails case.
-    updateForm({ name: 'reset' });
-
-    this.letFocus = true;
+    if(res.status === 'success') {
+      updateForm({ name: 'reset' });
+      this.letFocus = true;
+    };
   };
 
   updateInput = (name, value) => {
     let { updateForm } = this.props;
     updateForm({ name, value });
     this.giveFocus = false;
+  };
+
+  giveInputFocus = (input) => {
+    if(this.letFocus) {
+      input.focus();
+      this.letFocus = false;
+    };
   };
 
   render() {
@@ -119,7 +126,7 @@ class Form extends React.Component {
       handleSubmit,
       submitButton,
       updateInput,
-      letFocus,
+      giveInputFocus,
       props: {
         errorFields,
         theme,
@@ -131,19 +138,6 @@ class Form extends React.Component {
 
     colorTheme = ColorTheme[theme];
 
-    // /** If a new entry successfully got added. */
-    // if(errorFields.failedForm !== undefined && !errorFields.failedForm) {
-    //   /** Resets input value. */
-    //   this.firstNameInput.current.value = '';
-    //   /** Resets input value. */
-    //   this.lastNameInput.current.value = '';
-    //   /** Resets input value. */
-    //   this.emailInput.current.value = '';
-    //   // /** Resets input value. */
-    //   // this.passwordInput.current.value = '';
-    //   errorFields.failedForm = undefined;
-    // };
-
     return (
       <BubbleCard label='Form Section' theme={theme}>
         <FormWrapper onSubmit={(event) => (handleSubmit(event))}>
@@ -152,11 +146,11 @@ class Form extends React.Component {
             <Input
               type='text'
               name='firstName'
-              giveFocus={letFocus}
               error={errorFields.firstName}
               updateInput={updateInput}
               value={firstName}
               theme={theme}
+              giveFocus={giveInputFocus}
             />
           </Field>
           <Field TopChild Half>

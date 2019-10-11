@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../themes/colors';
+import { is } from '@babel/types';
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -38,19 +39,29 @@ class Input extends React.Component {
   });
   /** End End End End End End End End */
 
-  componentDidMount() {
+  componentDidMount(props) {
     /** Deconstructing */
-    const { refInput, props: { giveFocus } } = this;
-    /** If this input has  */
-    if(giveFocus) { refInput.current.focus(); };
+    const {
+      refInput,
+      props: {
+        value,
+        giveFocus
+      }
+    } = this;
+
+    refInput.current.value = value;
+    (giveFocus) && giveFocus(refInput.current);
   };
 
   updateInputValue(name) {
+    /** Deconstructing */
     const { refInput, props: { updateInput } } = this;
+    /** Updates the form's field in the store. */
     updateInput(name, refInput.current.value);
   };
 
   render() {
+    /** Deconstructing */
     const {
       InputStyled,
       refInput,
@@ -68,9 +79,17 @@ class Input extends React.Component {
 
     colorTheme = ColorTheme[theme];
 
-    // This will have to change. Ths is Temporary. Place this as an attribute
-    if(refInput.current && refInput.current.value) {
-      refInput.current.value = value;
+    if(refInput.current) {
+      /** If the input has already been created */
+      if(refInput.current.value) {
+        /** Sets the value of the input incase the value changes. */
+        refInput.current.value = value;
+      };
+
+      /** Re set the the focus on the desired input. */
+      if(giveFocus) {
+        giveFocus(refInput.current);
+      };
     };
 
     return (

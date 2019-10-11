@@ -51,10 +51,10 @@ export function formValidation({ dispatch }) {
 
         /** If the form failed in any of the fields. */
         if(errorRequirements.failedForm) {
-          return dispatch({ type: FAILED_ENTRY, payload });
+          return dispatch({ type: FAILED_ENTRY, payload, status:'error' });
 
         } else {
-          return dispatch({ type: ADD_ENTRY, payload });
+          return dispatch({ type: ADD_ENTRY, payload, status:'success' });
         };
       };
       return next(action);

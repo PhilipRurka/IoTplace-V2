@@ -50,7 +50,6 @@ function rootReducer(state = initialState, action) {
 
   /** FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY - FAILED_ENTRY */
   } else if(type === FAILED_ENTRY) {
-    debugger
     return Object.assign({}, state, {
       errorFields: { ...payload.errorFields }
     });
@@ -91,8 +90,6 @@ function rootReducer(state = initialState, action) {
   /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
 } else if(type === UPDATE_FORM) {
   const { name, value } = payload;
-
-  debugger
 
   let newState = Object.assign({}, state);
   newState.form[name] = value;
