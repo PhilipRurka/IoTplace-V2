@@ -1,5 +1,5 @@
 import React from 'react';
-import BubbleCard from '../BubbleCard';
+import BubbleCard from '../BubbleCard/BubbleCard';
 import styled from '@emotion/styled/macro';
 import uuid from 'uuid';
 import BasicButton from '../buttons/BasicButton';
