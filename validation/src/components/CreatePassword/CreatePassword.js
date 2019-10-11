@@ -1,27 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from '@emotion/styled/macro';
-import { updateForm, toggleRequirements } from '../redux/actions';
-import ColorTheme from '../themes/colors';
-import PasswordRequirements from './PasswordRequirements';
-import Input from './Input';
-
-const mapToStateToProps = ({
-  errorFields,
-  theme,
-  form: { password },
-  showingRequirements
-}) => ({
-  errorFields,
-  theme,
-  password,
-  showingRequirements
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  updateForm: (payload) => dispatch(updateForm(payload)),
-  toggleRequirements: () => dispatch(toggleRequirements())
-});
+import ColorTheme from '../../themes/colors';
+import PasswordRequirements from '../PasswordRequirements/PasswordRequirements';
+import Input from '../Input/Input';
 
 let colorTheme;
 
@@ -101,10 +82,4 @@ class CreatePassword extends React.Component {
   };
 };
 
-const connectedCreatePassword = connect(mapToStateToProps, mapDispatchToProps) (CreatePassword);
-
-export default connectedCreatePassword;
-
-
-
-// Remove all Password things from Form
+export default CreatePassword;

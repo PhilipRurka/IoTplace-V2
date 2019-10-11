@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from '@emotion/styled/macro';
-import ColorTheme from '../themes/colors';
-import { breaks } from '../helpers/breakpoints';
+import ColorTheme from '../../themes/colors';
+import { breaks } from '../../helpers/breakpoints';
 import {
   passwordLengthTest,
   passwordUpperTest,
   passwordLowerTest,
   passwordSpecialTest,
   passwordNumberTest
-} from '../helpers/conditions';
+} from '../../helpers/conditions';
 
 /** Colors of the current theme. */
 let colorTheme;

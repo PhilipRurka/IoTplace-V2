@@ -1,38 +1,28 @@
-import Form from './Form';
+import CreatePassword from './CreatePassword';
 import { connect } from 'react-redux';
 import {
-  addEntry,
-  initEntries,
-  updateForm
+  updateForm,
+  toggleRequirements
 } from '../../redux/actions';
 
 const mapToStateToProps = ({
   errorFields,
   theme,
-  form,
-  form: {
-    firstName,
-    lastName,
-    email
-  },
+  form: { password },
   showingRequirements
 }) => ({
   errorFields,
   theme,
-  form,
-  firstName,
-  lastName,
-  email,
+  password,
   showingRequirements
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateForm: (payload) => dispatch(updateForm(payload)),
-  addEntry: (entry) => dispatch(addEntry(entry)),
-  initEntries: (entries) => dispatch(initEntries(entries))
+  toggleRequirements: () => dispatch(toggleRequirements())
 });
 
 export default connect(
   mapToStateToProps,
   mapDispatchToProps
-) (Form);
+) (CreatePassword);

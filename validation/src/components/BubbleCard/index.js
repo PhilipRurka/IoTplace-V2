@@ -1,1 +1,1 @@
-export { default } from './BubbleCard.jsx';
+export { default } from './BubbleCard';

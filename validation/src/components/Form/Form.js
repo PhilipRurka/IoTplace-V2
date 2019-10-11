@@ -5,7 +5,7 @@ import uuid from 'uuid';
 import BasicButton from '../buttons/BasicButton';
 import ColorTheme from '../../themes/colors';
 import CreatePassword from '../CreatePassword';
-import Input from '../Input';
+import Input from '../Input/Input';
 
 /** Colors of the current theme. */
 let colorTheme;

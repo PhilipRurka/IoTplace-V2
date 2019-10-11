@@ -1,23 +1,10 @@
 import React from 'react';
-import BubbleCard from './BubbleCard';
-import { connect } from 'react-redux';
+import BubbleCard from '../BubbleCard';
 import styled from '@emotion/styled/macro';
-import { removeEntry, removeAllEntries } from '../redux/actions';
-import BasicButton from './buttons/BasicButton';
-import IconButton from './buttons/IconButton';
-import ColorTheme from '../themes/colors';
+import BasicButton from '../buttons/BasicButton';
+import IconButton from '../buttons/IconButton';
+import ColorTheme from '../../themes/colors';
 
-const mapToStateToProps = ({ entries, theme }) => ({
-  entries,
-  theme
-});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    removeEntry: (id) => dispatch(removeEntry(id)),
-    removeAllEntries: () => dispatch(removeAllEntries()),
-  };
-};
 /** Colors of the current theme. */
 let colorTheme;
 
@@ -144,6 +131,4 @@ const Display = ({ theme, entries, removeAllEntries, removeEntry }) => {
   );
 };
 
-const connectedDisplay = connect(mapToStateToProps, mapDispatchToProps) (Display)
-
-export default connectedDisplay;
+export default Display;
