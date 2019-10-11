@@ -1,3 +1,4 @@
+import { formatCamelCase } from '../helpers/general';
 import {
   ADD_ENTRY,
   INIT_ENTRIES,
@@ -19,7 +20,8 @@ const initialState = {
     email: '',
     password: '',
     confirmPassword: ''
-  }
+  },
+  toaster: ''
 };
 
 // Look into moving some of this logic into the middleware.
@@ -47,7 +49,8 @@ function rootReducer(state = initialState, action) {
       changes = {
         entries,
         errorFields: { ...state.errorFields, ...payload.errorFields },
-        form
+        form,
+        toast: 'New Entry Successfully Added!'
       };
 
     } else {
@@ -61,7 +64,8 @@ function rootReducer(state = initialState, action) {
   /** INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES */
   } else if(type === INIT_ENTRIES) {
     return Object.assign({}, state, {
-      entries: state.entries.concat(payload)
+      entries: state.entries.concat(payload),
+      toast: 'Welcome Back!'
     });
 
   /** REMOVE_ENTRY - REMOVE_ENTRY - REMOVE_ENTRY - REMOVE_ENTRY */
@@ -73,7 +77,10 @@ function rootReducer(state = initialState, action) {
     entries.splice(payload, 1);
     localStorage.setItem('entries', JSON.stringify({ entries }));
 
-    return Object.assign({}, state, { entries });
+    return Object.assign({}, state, {
+      entries,
+      toast: 'Selected Entry Has Been Removed!'
+    });
 
   /** REMOVE_ALL_ENTRIES - REMOVE_ALL_ENTRIES - REMOVE_ALL_ENTRIES */
   } else if(type === REMOVE_ALL_ENTRIES) {
@@ -81,7 +88,10 @@ function rootReducer(state = initialState, action) {
     /** Setting the entries to LocalStorage */
     localStorage.setItem('entries', JSON.stringify(entries));
 
-    return Object.assign({}, state, { entries });
+    return Object.assign({}, state, {
+      entries,
+      toast: 'All Entries Have Been Removed!'
+    });
 
   /** TOGGLE_THEME - TOGGLE_THEME - TOGGLE_THEME - TOGGLE_THEME */
   } else if(type === TOGGLE_THEME) {
@@ -89,7 +99,12 @@ function rootReducer(state = initialState, action) {
     const theme = (state.theme === 'cloud')
       ? 'nightVision' : 'cloud';
 
-    return Object.assign({}, state, { theme });
+    const formatedTheme = formatCamelCase(theme);
+
+    return Object.assign({}, state, {
+      theme,
+      toast: `Enjoy the ${formatedTheme}!`
+    });
 
   /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
 } else if(type === UPDATE_FORM) {
