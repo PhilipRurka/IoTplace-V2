@@ -1,4 +1,5 @@
 import { formatCamelCase } from '../helpers/general';
+import uuid from 'uuid';
 import {
   ADD_ENTRY,
   INIT_ENTRIES,
@@ -6,7 +7,8 @@ import {
   REMOVE_ALL_ENTRIES,
   TOGGLE_THEME,
   UPDATE_FORM,
-  TOGGLE_REQUIREMENTS
+  TOGGLE_REQUIREMENTS,
+  DELETE_TOAST
 } from './constants';
 
 const initialState = {
@@ -21,12 +23,20 @@ const initialState = {
     password: '',
     confirmPassword: ''
   },
-  toaster: ''
+  toaster: {
+    toastList: {},
+    flicker: false
+  }
 };
 
 // Look into moving some of this logic into the middleware.
 function rootReducer(state = initialState, action) {
   const { type, payload, status } = action;
+  /** Creates a UUID */
+  const id = uuid();
+  let newState = Object.assign({}, state);
+  let toaster = Object.assign({}, state.toaster);
+  let { toastList } = toaster;
 
   /** ADD_ENTRY - ADD_ENTRY - ADD_ENTRY - ADD_ENTRY - ADD_ENTRY */
   if(type === ADD_ENTRY) {
@@ -45,12 +55,14 @@ function rootReducer(state = initialState, action) {
         password: '',
         confirmPassword: ''
       };
+      
+      toastList[id] = 'New Entry Successfully Added!';
 
       changes = {
         entries,
         errorFields: { ...state.errorFields, ...payload.errorFields },
         form,
-        toast: 'New Entry Successfully Added!'
+        toaster
       };
 
     } else {
@@ -63,9 +75,12 @@ function rootReducer(state = initialState, action) {
 
   /** INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES */
   } else if(type === INIT_ENTRIES) {
+
+    toastList[id] = 'Welcome Back!';
+
     return Object.assign({}, state, {
       entries: state.entries.concat(payload),
-      toast: 'Welcome Back!'
+      toaster
     });
 
   /** REMOVE_ENTRY - REMOVE_ENTRY - REMOVE_ENTRY - REMOVE_ENTRY */
@@ -77,9 +92,11 @@ function rootReducer(state = initialState, action) {
     entries.splice(payload, 1);
     localStorage.setItem('entries', JSON.stringify({ entries }));
 
+    toastList[id] = 'Selected Entry Has Been Removed!';
+
     return Object.assign({}, state, {
       entries,
-      toast: 'Selected Entry Has Been Removed!'
+      toaster
     });
 
   /** REMOVE_ALL_ENTRIES - REMOVE_ALL_ENTRIES - REMOVE_ALL_ENTRIES */
@@ -87,10 +104,12 @@ function rootReducer(state = initialState, action) {
     const entries = [];
     /** Setting the entries to LocalStorage */
     localStorage.setItem('entries', JSON.stringify(entries));
+    
+    toastList[id] = 'All Entries Have Been Removed!';
 
     return Object.assign({}, state, {
       entries,
-      toast: 'All Entries Have Been Removed!'
+      toaster
     });
 
   /** TOGGLE_THEME - TOGGLE_THEME - TOGGLE_THEME - TOGGLE_THEME */
@@ -101,16 +120,17 @@ function rootReducer(state = initialState, action) {
 
     const formatedTheme = formatCamelCase(theme);
 
+    toastList[id] = `Enjoy the ${formatedTheme}!`;
+
     return Object.assign({}, state, {
       theme,
-      toast: `Enjoy the ${formatedTheme}!`
+      toaster
     });
 
   /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
 } else if(type === UPDATE_FORM) {
   const { name, value } = payload;
 
-  let newState = Object.assign({}, state);
   newState.form[name] = value;
 
   return newState;
@@ -121,9 +141,30 @@ function rootReducer(state = initialState, action) {
   const showingRequirements = (state.showingRequirements) ? false : true;
 
   return Object.assign({}, state, { showingRequirements })
+  
+} else if(type === DELETE_TOAST) {
+  newState.toaster.flicker = !newState.toaster.flicker;
+  delete newState.toaster.toastList[payload];
+
+  return newState;
 };
 
 return state;
 };
 
 export default rootReducer;
+
+
+
+
+
+
+
+/**
+ * toast: {
+ *  id: Text
+ * }
+ * 
+ * On the object key map, loop over the keys and display them.
+ * Pass the Id as a prop and when the time is up or the x is clicked, pass the id back and remove it from the array list!
+ */

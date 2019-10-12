@@ -53,7 +53,8 @@ const CurrentTheme = styled.div(() => ({
   'span p': {
     margin: '0',
     textDecoration: 'underline',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    userSelect: 'none'
   }
 }));
 /** End End End End End End End End */

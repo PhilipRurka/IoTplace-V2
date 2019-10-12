@@ -6,7 +6,7 @@ import {
   TOGGLE_THEME,
   UPDATE_FORM,
   TOGGLE_REQUIREMENTS,
-  // TRIGGER_TOAST
+  DELETE_TOAST
 } from './constants';
 
 export function addEntry(payload) {
@@ -37,6 +37,6 @@ export function toggleRequirements() {
   return { type: TOGGLE_REQUIREMENTS };
 };
 
-// export function triggerToast() {
-//   return { type: TRIGGER_TOAST };
-// };
+export function deleteToast(payload) {
+  return { type: DELETE_TOAST, payload };
+};
