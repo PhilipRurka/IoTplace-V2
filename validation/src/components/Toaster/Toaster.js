@@ -62,7 +62,11 @@ class Toaster extends React.Component {
       <Wrapper>
         {Object.keys(toastList).map((id) => {
           return (
-          <Toast key={id}>
+          <Toast
+            key={id}
+            id={id}
+            dismountToast={dismountToast}
+            >
             <Container>
               <label>{toastList[id]}</label>
               <Xicon

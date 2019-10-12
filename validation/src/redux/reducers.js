@@ -65,23 +65,28 @@ function rootReducer(state = initialState, action) {
         toaster
       };
 
+      changes.toaster.flicker = !changes.toaster.flicker;
+
     } else {
-      changes = {
-        errorFields: { ...payload.errorFields }
-      };
+      changes = { errorFields: { ...payload.errorFields } };
     };
 
-    return Object.assign({}, state, { ...changes });
+    newState = Object.assign({}, newState, { ...changes });
 
+    return newState;
+
+    
   /** INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES - INIT_ENTRIES */
   } else if(type === INIT_ENTRIES) {
 
     toastList[id] = 'Welcome Back!';
+    toaster.flicker = !toaster.flicker;
 
     return Object.assign({}, state, {
       entries: state.entries.concat(payload),
       toaster
     });
+
 
   /** REMOVE_ENTRY - REMOVE_ENTRY - REMOVE_ENTRY - REMOVE_ENTRY */
   } else if(type === REMOVE_ENTRY) {
@@ -93,11 +98,13 @@ function rootReducer(state = initialState, action) {
     localStorage.setItem('entries', JSON.stringify({ entries }));
 
     toastList[id] = 'Selected Entry Has Been Removed!';
+    toaster.flicker = !toaster.flicker;
 
     return Object.assign({}, state, {
       entries,
       toaster
     });
+
 
   /** REMOVE_ALL_ENTRIES - REMOVE_ALL_ENTRIES - REMOVE_ALL_ENTRIES */
   } else if(type === REMOVE_ALL_ENTRIES) {
@@ -106,11 +113,13 @@ function rootReducer(state = initialState, action) {
     localStorage.setItem('entries', JSON.stringify(entries));
     
     toastList[id] = 'All Entries Have Been Removed!';
+    toaster.flicker = !toaster.flicker;
 
     return Object.assign({}, state, {
       entries,
       toaster
     });
+
 
   /** TOGGLE_THEME - TOGGLE_THEME - TOGGLE_THEME - TOGGLE_THEME */
   } else if(type === TOGGLE_THEME) {
@@ -121,11 +130,13 @@ function rootReducer(state = initialState, action) {
     const formatedTheme = formatCamelCase(theme);
 
     toastList[id] = `Enjoy the ${formatedTheme}!`;
+    toaster.flicker = !toaster.flicker;
 
     return Object.assign({}, state, {
       theme,
       toaster
     });
+
 
   /** UPDATE_FORM - UPDATE_FORM - UPDATE_FORM - UPDATE_FORM */
 } else if(type === UPDATE_FORM) {
@@ -135,6 +146,7 @@ function rootReducer(state = initialState, action) {
 
   return newState;
 
+
 /** TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS - TOGGLE_REQUIREMENTS */
 } else if(type === TOGGLE_REQUIREMENTS) {
   /** Toggling in between two options. */
@@ -142,6 +154,7 @@ function rootReducer(state = initialState, action) {
 
   return Object.assign({}, state, { showingRequirements })
   
+
 } else if(type === DELETE_TOAST) {
   newState.toaster.flicker = !newState.toaster.flicker;
   delete newState.toaster.toastList[payload];
