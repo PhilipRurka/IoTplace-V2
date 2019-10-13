@@ -10,62 +10,52 @@ class Toast extends React.Component {
     currentStep: null
   };
 
-  Wrapper = styled.div({
-    position: 'relative',
-    display: 'table',
-    marginLeft: 'auto',
-    '& + div': { marginTop: '12px' }
-  });
+  stepTimings = () => {
+    const step1 = 100;
+    const step2 = step1 + 3000;
+    const step3 = 5000;
 
-  containerStyled = () => ({
-    backgroundColor: colorTheme.secondaryBackground,
-    color: colorTheme.primaryCopy,
-    marginRight: '20px',
-    padding: '10px 50px 10px 25px',
-    border: `2px solid ${colorTheme.primaryBorder}`,
-    borderRadius: '10px',
-    boxShadow: `0 0 13px ${colorTheme.primaryShadow}`,
+    return { step1, step2, step3 };
+  };
+  
 
-    'label': {
-      margin: '0',
-      whiteSpace: 'noWrap'
-    }
-  });
-
-  InvisibleContainer = styled.div(() => {
-    const { containerStyled, state: { currentStep } } = this;
+  Wrapper = styled.div(() => {
+    const { state: { currentStep } } = this;
     let animation = null;
 
     if(currentStep === 1) {
       animation = { right: '0' };
 
-    } else if(currentStep === 3) {
-      animation = { height: '0' };
+    } else if(currentStep === 2) {
+      animation = {
+        height: '0',
+        borderWidth: '0',
+        paddingTop: '0',
+        paddingBottom: '0',
+        marginTop: '0 !important'
+      };
     };
 
     return {
-      ...containerStyled(),
+      backgroundColor: colorTheme.secondaryBackground,
+      color: colorTheme.primaryCopy,
+      marginRight: '20px',
+      padding: '10px 50px 10px 25px',
+      border: `2px solid ${colorTheme.primaryBorder}`,
+      borderRadius: '10px',
+      boxShadow: `0 0 13px ${colorTheme.primaryShadow}`,
       position: 'relative',
-      display: 'inline-block',
       overflow: 'hidden',
       marginLeft: 'auto',
       right: 'calc(-100% - 20px)',
       height: '48px',
-      transition: 'right 0.5s ease, height 0.5s ease',
+      transition: 'all 0.5s ease',
+      '& + div': { marginTop: '12px' },
+      'label': {
+        margin: '0',
+        whiteSpace: 'noWrap'
+      },
       ...animation
-    };
-  });
-
-  VisibleContainer = styled.div(() => {
-    const { containerStyled } = this;
-
-    return {
-      display: 'none',
-      ...containerStyled(),
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
     };
   });
   
@@ -80,26 +70,33 @@ class Toast extends React.Component {
   });
 
   componentDidMount() {
+    const { slideOut, stepTimings } = this;
+    const steps = stepTimings();
+    const { step1, step2 } = steps;
 
-    const step1 = 100;
-    const step2 = step1 + 3000;
-    const step3 = step1 + step2 + 500;
-
+    /** Slide In */
     setTimeout(() => {
       this.setState({ currentStep: 1 });
     }, step1);
 
-    // setTimeout(() => {
-    //   this.setState({ currentStep: 2 });
-    // }, step2 );
-    
-    // setTimeout(() => {
-    //   this.setState({ currentStep: 3 });
-    // }, step3);
+    /** Slide Out */
+    setTimeout(() => {
+      slideOut();
+    }, step2);
+  };
 
-    // setTimeout(() => {
-    //   this.dismount();
-    // }, 5000);
+  slideOut = () => {
+    const { dismount, stepTimings } = this;
+    const steps = stepTimings();
+    const { step3 } = steps;
+
+    /** Slide Out */
+    this.setState({ currentStep: 2 });
+
+    /** Delete Toast */
+    setTimeout(() => {
+      dismount()
+    }, step3);
   };
 
   dismount = () => {
@@ -110,7 +107,7 @@ class Toast extends React.Component {
   Content = () => {
     const {
       Xicon,
-      dismount,
+      slideOut,
       props: {
         label,
         id
@@ -121,7 +118,7 @@ class Toast extends React.Component {
       <div>
         <label>{label}</label>
         <Xicon
-          onClick={() => (dismount(id))}
+          onClick={() => (slideOut())}
         >X</Xicon>
       </div>
     );
@@ -130,8 +127,6 @@ class Toast extends React.Component {
   render() {
     const {
       Wrapper,
-      InvisibleContainer,
-      VisibleContainer,
       Content,
       props: { theme }
     } = this;
@@ -140,12 +135,7 @@ class Toast extends React.Component {
 
     return (
       <Wrapper>
-        <InvisibleContainer>
-          <Content />
-          <VisibleContainer>
-            <Content />
-          </VisibleContainer>
-        </InvisibleContainer>
+        <Content />
       </Wrapper>
     )
   }

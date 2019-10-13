@@ -8,7 +8,10 @@ class Toaster extends React.Component {
   Wrapper = styled.div({
     position: 'fixed',
     top: '20px',
-    right: '0'
+    right: '0',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'column'
   });
   
   dismountToast = (id) => {
