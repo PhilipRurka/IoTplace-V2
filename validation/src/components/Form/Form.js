@@ -50,7 +50,6 @@ class Form extends React.Component {
     });
 
     if(res.status === 'success') {
-      updateForm({ name: 'reset' });
       this.letFocus = true;
     };
   };
