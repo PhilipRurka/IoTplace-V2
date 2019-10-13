@@ -27,3 +27,10 @@ export const buttonColor = (selectedColor, colorTheme) => {
   }
 };
 
+export const formatCamelCase = (string) => {
+  /** This splits up camel case strings. */
+  let formated = string.replace(/([a-z])([A-Z])/g, '$1 $2');
+  /** This uppercase's the first letter of a string. */
+  formated = formated.charAt(0).toUpperCase() + formated.slice(1);
+  return formated;
+};

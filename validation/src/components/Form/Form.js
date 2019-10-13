@@ -3,13 +3,9 @@ import BubbleCard from '../BubbleCard/BubbleCard';
 import styled from '@emotion/styled/macro';
 import uuid from 'uuid';
 import BasicButton from '../buttons/BasicButton';
-import ColorTheme from '../../themes/colors';
 import CreatePassword from '../CreatePassword';
 import Input from '../Input/Input';
 import Field from '../Field/Field';
-
-/** Colors of the current theme. */
-let colorTheme;
 
 class Form extends React.Component {
   letFocus = true
@@ -88,8 +84,6 @@ class Form extends React.Component {
         email
       }
     } = this;
-
-    colorTheme = ColorTheme[theme];
 
     return (
       <BubbleCard label='Form Section' theme={theme}>

@@ -3,6 +3,8 @@ import Form from '../Form';
 import Display from '../Display';
 import styled from '@emotion/styled/macro';
 import ColorTheme from '../../themes/colors';
+import Toaster from '../Toaster';
+import { formatCamelCase } from '../../helpers/general';
 
 /** Colors of the current theme. */
 let colorTheme;
@@ -51,7 +53,8 @@ const CurrentTheme = styled.div(() => ({
   'span p': {
     margin: '0',
     textDecoration: 'underline',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    userSelect: 'none'
   }
 }));
 /** End End End End End End End End */
@@ -66,9 +69,7 @@ const App = ({ theme, toggleTheme }) => {
   colorTheme = ColorTheme[theme];
 
   /** This splits up camel case strings. */
-  let formatedTheme = theme.replace(/([a-z])([A-Z])/g, '$1 $2');
-  /** This uppercase's the first letter of a string. */
-  formatedTheme = formatedTheme.charAt(0).toUpperCase() + formatedTheme.slice(1);
+  let formatedTheme = formatCamelCase(theme);
 
   return (
     <GlobalWrapper>
@@ -87,6 +88,7 @@ const App = ({ theme, toggleTheme }) => {
         <Form />
         <Display />
       </div>
+      <Toaster />
     </GlobalWrapper>
   );
 };
