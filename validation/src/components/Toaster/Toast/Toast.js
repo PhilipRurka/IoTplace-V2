@@ -9,16 +9,8 @@ class Toast extends React.Component {
   state = {
     currentStep: null
   };
-
-  stepTimings = () => {
-    const step1 = 100;
-    const step2 = step1 + 3000;
-    const step3 = 5000;
-
-    return { step1, step2, step3 };
-  };
   
-
+  /** Styled Styled Styled Styled Styled Styled Styled Styled */
   Wrapper = styled.div(() => {
     const { state: { currentStep } } = this;
     let animation = null;
@@ -68,6 +60,7 @@ class Toast extends React.Component {
     lineHeight: '16px',
     cursor: 'pointer'
   });
+  /** End End End End End End End End End */
 
   componentDidMount() {
     const { slideOut, stepTimings } = this;
@@ -83,6 +76,14 @@ class Toast extends React.Component {
     setTimeout(() => {
       slideOut();
     }, step2);
+  };
+
+  stepTimings = () => {
+    const step1 = 100;
+    const step2 = step1 + 3000;
+    const step3 = 5000;
+
+    return { step1, step2, step3 };
   };
 
   slideOut = () => {
@@ -104,41 +105,25 @@ class Toast extends React.Component {
     dismountToast(id);
   };
 
-  Content = () => {
-    const {
-      Xicon,
-      slideOut,
-      props: {
-        label,
-        id
-      }
-    } = this;
-
-    return (
-      <div>
-        <label>{label}</label>
-        <Xicon
-          onClick={() => (slideOut())}
-        >X</Xicon>
-      </div>
-    );
-  };
-
   render() {
     const {
       Wrapper,
-      Content,
-      props: { theme }
+      Xicon,
+      slideOut,
+      props: { theme, label }
     } = this;
 
     colorTheme = ColorTheme[theme];
 
     return (
       <Wrapper>
-        <Content />
+        <label>{label}</label>
+        <Xicon
+          onClick={() => (slideOut())}
+        >X</Xicon>
       </Wrapper>
-    )
-  }
+    );
+  };
 };
 
 export default Toast;
